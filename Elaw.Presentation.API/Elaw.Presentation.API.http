@@ -1,0 +1,6 @@
+@Elaw.Presentation.API_HostAddress = http://localhost:5268
+
+GET {{Elaw.Presentation.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
