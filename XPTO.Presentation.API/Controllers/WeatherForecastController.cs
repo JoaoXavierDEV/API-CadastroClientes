@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using XPTO.Domain.Entities;
+using XPTO.Infrastructure.Data.Context;
 
 namespace XPTO.Presentation.API.Controllers
 {
@@ -6,28 +8,24 @@ namespace XPTO.Presentation.API.Controllers
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase
     {
-        private static readonly string[] Summaries = new[]
-        {
-            "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-        };
-
         private readonly ILogger<WeatherForecastController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet(Name = "GetWeatherForecast")]
-        public IEnumerable<WeatherForecast> Get()
+        public IEnumerable<Cliente> GetClientes()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = Summaries[Random.Shared.Next(Summaries.Length)]
-            })
-            .ToArray();
+            var clientes = _context.Cliente.ToList();
+
+            var enderecos = _context.Endereco.ToList();
+
+            return clientes;
+
         }
     }
 }

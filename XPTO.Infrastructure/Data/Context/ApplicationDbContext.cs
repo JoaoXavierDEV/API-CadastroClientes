@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Infrastructure.Data.Context
@@ -11,31 +12,35 @@ namespace XPTO.Infrastructure.Data.Context
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.UseCollation("SQL_Latin1_General_CP1_CS_AS");
-
-            foreach (var property in modelBuilder.Model.GetEntityTypes()
-                         .SelectMany((e) => e.GetProperties()
-                             .Where(p => p.ClrType == typeof(string))))
-                property.SetColumnType("varchar(100)");
-
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
             base.OnModelCreating(modelBuilder);
         }
 
-        //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        //{
-        //    optionsBuilder.UseSqlite(@"DataSource=app.db;Cache=Shared")
-        //        .EnableSensitiveDataLogging()
-        //    //.UseLazyLoadingProxies()
-        //    .LogTo(Console.WriteLine, LogLevel.Error);
-        //    //.LogTo(Console.WriteLine, new[] { RelationalEventId.CommandExecuted }, LogLevel.Information, DbContextLoggerOptions.LocalTime | DbContextLoggerOptions.SingleLine);
-        //    ;
-        //}
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            Console.WriteLine("Configuring ApplicationDbContext...");
+
+            optionsBuilder
+                .UseInMemoryDatabase("xpto-database")
+                .EnableSensitiveDataLogging()
+                .LogTo(Console.WriteLine, LogLevel.Error)
+                .UseSeeding((x, _) =>
+                {
+                    bool hasData = x.Set<Cliente>().Any() || x.Set<Endereco>().Any();
+
+                    if (!hasData)
+                    {
+                        //x.Set<Cliente>().AddRange();
+                        //x.SaveChanges();
+                    }
+                });
+        }
 
 
         public DbSet<Cliente> Cliente { get; set; }

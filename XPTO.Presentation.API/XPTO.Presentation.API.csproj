@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="9.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\XPTO.Domain\XPTO.Domain.csproj" />
+    <ProjectReference Include="..\XPTO.Infrastructure\XPTO.Infrastructure.csproj" />
   </ItemGroup>
 
 </Project>

@@ -7,6 +7,11 @@
         public virtual string Telefone { get; set; }
         public virtual Endereco Endereco { get; set; }
 
+        public Cliente()
+        {
+            
+        }
+
         public Cliente(string nome, string email, string telefone, Endereco endereco)
         {
             Nome = nome;

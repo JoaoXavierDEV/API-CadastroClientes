@@ -23,16 +23,19 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
         var optionsBuilder = new DbContextOptionsBuilder();
 
         optionsBuilder
-            .UseSqlite(@"DataSource=app.db;Cache=Shared")
-            //.UseSeeding((context, _) =>
-            //{
-            //    context.Set<Autor>().AddRange(DbInitializer.Autores);
-            //    context.SaveChanges();
-            //})
+            .UseInMemoryDatabase("xpto-database")
             .EnableSensitiveDataLogging()
-            //.UseLazyLoadingProxies()
             .LogTo(Console.WriteLine, LogLevel.Error);
-        //.LogTo(Console.WriteLine, new[] { RelationalEventId.CommandExecuted }, LogLevel.Information, DbContextLoggerOptions.LocalTime | DbContextLoggerOptions.SingleLine);;
+        //.UseSeeding((x, _) =>
+        //{
+        //    //bool hasData = x.Set<Cliente>().Any() || x.Set<Endereco>().Any();
+
+        //    //if (!hasData)
+        //    //{
+        //    //    x.Set<Cliente>().AddRange(DbInitializer.Clientes);
+        //    //    x.SaveChanges();
+        //    //}
+        //});
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }

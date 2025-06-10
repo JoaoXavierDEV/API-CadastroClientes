@@ -8,8 +8,6 @@ namespace XPTO.Infrastructure.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Endereco> builder)
         {
-            builder.ToTable("Endereco");
-
             builder.HasKey(p => p.Id);
 
             builder.Property(p => p.Rua)
