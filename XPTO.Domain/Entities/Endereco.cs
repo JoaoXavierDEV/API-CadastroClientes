@@ -1,4 +1,4 @@
-﻿namespace Elaw.Domain.Entities
+﻿namespace XPTO.Domain.Entities
 {
     public class Endereco : EntityBase
     {

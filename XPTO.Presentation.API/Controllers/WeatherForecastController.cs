@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 
-namespace Elaw.Presentation.API.Controllers
+namespace XPTO.Presentation.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]

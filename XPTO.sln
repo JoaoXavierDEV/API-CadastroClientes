@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.14.36202.13 d17.14
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elaw.Presentation.API", "Elaw.Presentation.API\Elaw.Presentation.API.csproj", "{63BC2A70-6AC2-47CE-8BFA-B4084712F1BD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Presentation.API", "XPTO.Presentation.API\XPTO.Presentation.API.csproj", "{63BC2A70-6AC2-47CE-8BFA-B4084712F1BD}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Itens", "Solution Itens", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 	ProjectSection(SolutionItems) = preProject
@@ -18,7 +18,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{9F0E1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{A082A5B8-ACA0-4B37-BBCC-628CC0842F07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Elaw.Domain", "Elaw.Domain\Elaw.Domain.csproj", "{CC9A81B1-D269-4526-AA1C-F056C7210FDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Domain", "XPTO.Domain\XPTO.Domain.csproj", "{CC9A81B1-D269-4526-AA1C-F056C7210FDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Infrastructure", "XPTO.Infrastructure\XPTO.Infrastructure.csproj", "{E5EC8417-5B0D-4DC1-8C5E-FB3701423444}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,6 +36,10 @@ Global
 		{CC9A81B1-D269-4526-AA1C-F056C7210FDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CC9A81B1-D269-4526-AA1C-F056C7210FDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CC9A81B1-D269-4526-AA1C-F056C7210FDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5EC8417-5B0D-4DC1-8C5E-FB3701423444}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5EC8417-5B0D-4DC1-8C5E-FB3701423444}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5EC8417-5B0D-4DC1-8C5E-FB3701423444}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5EC8417-5B0D-4DC1-8C5E-FB3701423444}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{63BC2A70-6AC2-47CE-8BFA-B4084712F1BD} = {F6F1501E-7AC5-4F0F-8AF8-1AC817267CB9}
 		{CC9A81B1-D269-4526-AA1C-F056C7210FDF} = {9F0E1EB7-9B2B-4955-AB57-80ECA0CEB02B}
+		{E5EC8417-5B0D-4DC1-8C5E-FB3701423444} = {1ECB41C2-A4E2-4590-B452-A4C7D27D87AF}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A6AC051-0E31-402D-BCD8-FD302DE49BBE}

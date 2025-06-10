@@ -1,4 +1,4 @@
-namespace Elaw.Presentation.API
+namespace XPTO.Presentation.API
 {
     public class WeatherForecast
     {
