@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Diagnostics;
+using Microsoft.EntityFrameworkCore;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Infrastructure.Data.Context
@@ -24,21 +25,22 @@ namespace XPTO.Infrastructure.Data.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             Console.WriteLine("Configuring ApplicationDbContext...");
+            Debug.WriteLine("Configuring ApplicationDbContext...");
 
-            optionsBuilder
-                .UseInMemoryDatabase("xpto-database")
-                .EnableSensitiveDataLogging()
-                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error)
-                .UseSeeding((x, _) =>
-                {
-                    bool hasData = x.Set<Cliente>().Any() || x.Set<Endereco>().Any();
+            //optionsBuilder
+            //    .UseInMemoryDatabase("xpto-database")
+            //    .EnableSensitiveDataLogging()
+            //    .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error)
+            //    .UseSeeding((x, _) =>
+            //    {
+            //        bool hasData = x.Set<Cliente>().Any() || x.Set<Endereco>().Any();
 
-                    if (!hasData)
-                    {
-                        x.Set<Cliente>().AddRange(DbInitializer.Clientes);
-                        x.SaveChanges();
-                    }
-                });
+            //        if (!hasData)
+            //        {
+            //            x.Set<Cliente>().AddRange(DbInitializer.Clientes);
+            //            x.SaveChanges();
+            //        }
+            //    });
         }
 
 

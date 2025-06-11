@@ -1,4 +1,5 @@
-﻿using AutonomoApp.Data.Repository;
+﻿using System.Data.Entity;
+using AutonomoApp.Data.Repository;
 using XPTO.Domain.Entities;
 using XPTO.Domain.Interfaces;
 using XPTO.Infrastructure.Data.Context;
@@ -13,12 +14,17 @@ namespace XPTO.Infrastructure.Repository
 
         public IEnumerable<Cliente> ObterTodosClientes()
         {
-            return DbSet.ToList();
+            return DbSet
+                .AsNoTracking()
+                .Include(x => x.Endereco).ToList();
         }
-        public Cliente ObterPorId(Guid? id)
+
+        public new Cliente ObterPorId(Guid id)
         {
-            return DbSet.Find(id) ?? new Cliente();
+            return DbSet.Find(id);
+            //return DbSet.Find(id) ?? new Cliente();
         }
+
         public async void Add(Cliente cliente)
         {
             DbSet.Add(cliente);
@@ -29,7 +35,7 @@ namespace XPTO.Infrastructure.Repository
             DbSet.Update(cliente);
             await SaveChanges();
         }
-        public async void Remove(Guid? id)
+        public override async Task Remover(Guid id)
         {
             var cliente = ObterPorId(id);
 
@@ -39,12 +45,13 @@ namespace XPTO.Infrastructure.Repository
                 await SaveChanges();
             }
         }
-        public async void Remove(Cliente cliente)
+        public async void Remover(Cliente cliente)
         {
             DbSet.Remove(cliente);
 
             await SaveChanges();
         }
+
     }
 
 }

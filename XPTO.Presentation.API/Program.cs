@@ -4,9 +4,8 @@ using XPTO.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-
 builder.Services.AddLayerApplication();
+
 builder.Services.AddLayerInfrastructure();
 
 builder.Services.AddControllers().AddJsonOptions(options =>

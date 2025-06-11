@@ -33,9 +33,9 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
         await SaveChanges();
     }
 
-    public async Task<T> ObterPorId(Guid id)
+    public T ObterPorId(Guid id)
     {
-        return await DbSet.FindAsync(id) ?? Activator.CreateInstance<T>();
+        return DbSet.Find(id) ?? Activator.CreateInstance<T>();
     }
 
     public async Task<List<T>> ObterTodos()
@@ -45,11 +45,22 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
 
     public async Task Atualizar(T entity)
     {
-        DbSet.Update(entity);
-        await SaveChanges();
+        try
+        {
+            DbSet.Attach(entity);
+
+            DbSet.Update(entity);
+
+            await SaveChanges();
+        }
+        catch (Exception)
+        {
+
+            throw;
+        }
     }
 
-    public async Task Remover(Guid id)
+    public virtual async Task Remover(Guid id)
     {
         DbSet.Remove(new T { Id = id });
         await SaveChanges();

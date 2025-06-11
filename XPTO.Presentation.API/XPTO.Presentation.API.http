@@ -1,6 +1,23 @@
-@XPTO.Presentation.API_HostAddress = http://localhost:5268
+@XPTO.Presentation.API_HostAddress = http://localhost:7274
 
-GET {{XPTO.Presentation.API_HostAddress}}/weatherforecast/
-Accept: application/json
+# GET {{XPTO.Presentation.API_HostAddress}}/weatherforecast/
+# Accept: application/json
 
+
+POST {{XPTO.Presentation.API_HostAddress}}/Cliente
+Content-Type: application/json
+{
+  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+  "nome": "string",
+  "email": "string",
+  "telefone": "string",
+  "endereco": {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "rua": "string",
+    "numero": "string",
+    "cidade": "string",
+    "estado": "string",
+    "cep": "string"
+  }
+}
 ###
