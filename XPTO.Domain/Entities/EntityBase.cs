@@ -1,6 +1,12 @@
 ﻿namespace XPTO.Domain.Entities
 {
-    public abstract class EntityBase
+    public interface IDataTransferObject { }
+    public interface IEntityBase
+    {
+        Guid Id { get; set; }
+    }
+
+    public abstract class EntityBase : IEntityBase
     {
         public Guid Id { get; set; }
 
@@ -8,5 +14,6 @@
         {
             Id = Guid.NewGuid();
         }
+
     }
 }

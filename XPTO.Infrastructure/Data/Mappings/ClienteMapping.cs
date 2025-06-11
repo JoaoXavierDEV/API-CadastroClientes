@@ -13,11 +13,13 @@ namespace XPTO.Infrastructure.Data.Mappings
             builder.HasKey(a => a.Id);
             //builder.HasKey(a => new { a.Id, a.Email });
 
-            builder.Property(a => a.Nome)
+            builder
+                .Property(a => a.Nome)
                 .IsRequired()
                 .HasMaxLength(100);
 
-            builder.Property(a => a.Email)
+            builder
+                .Property(a => a.Email)
                 .IsRequired()
                 .HasMaxLength(50);
 
@@ -25,7 +27,6 @@ namespace XPTO.Infrastructure.Data.Mappings
                 .HasMaxLength(15);
 
             builder.HasOne(a => a.Endereco);
-            //.HasForeignKey(p => p.AutorID);
         }
     }
 

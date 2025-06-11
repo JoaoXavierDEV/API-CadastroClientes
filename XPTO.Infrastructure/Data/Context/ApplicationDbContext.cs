@@ -1,14 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Infrastructure.Data.Context
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
-        {
-        }
+        //public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
+        //{
+        //}
 
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
@@ -29,15 +28,15 @@ namespace XPTO.Infrastructure.Data.Context
             optionsBuilder
                 .UseInMemoryDatabase("xpto-database")
                 .EnableSensitiveDataLogging()
-                .LogTo(Console.WriteLine, LogLevel.Error)
+                .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error)
                 .UseSeeding((x, _) =>
                 {
                     bool hasData = x.Set<Cliente>().Any() || x.Set<Endereco>().Any();
 
                     if (!hasData)
                     {
-                        //x.Set<Cliente>().AddRange();
-                        //x.SaveChanges();
+                        x.Set<Cliente>().AddRange(DbInitializer.Clientes);
+                        x.SaveChanges();
                     }
                 });
         }

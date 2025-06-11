@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\XPTO.Application\XPTO.Application.csproj" />
     <ProjectReference Include="..\XPTO.Domain\XPTO.Domain.csproj" />
     <ProjectReference Include="..\XPTO.Infrastructure\XPTO.Infrastructure.csproj" />
   </ItemGroup>

@@ -1,25 +1,13 @@
 using System.Text.Json.Serialization;
-using Microsoft.EntityFrameworkCore;
-using XPTO.Domain.Entities;
-using XPTO.Infrastructure.Data.Context;
+using XPTO.Application;
+using XPTO.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-{
-    options.UseInMemoryDatabase("xpto-database");
-    options.UseSeeding((x, _) =>
-    {
-        var existeDados = x.Set<Cliente>().Any();
 
-        if (!existeDados)
-        {
-            x.Set<Cliente>().AddRange(DbInitializer.Clientes);
-            x.SaveChanges();
-        }
 
-    });
-});
+builder.Services.AddLayerApplication();
+builder.Services.AddLayerInfrastructure();
 
 builder.Services.AddControllers().AddJsonOptions(options =>
 {

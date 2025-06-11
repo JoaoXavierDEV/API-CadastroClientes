@@ -15,5 +15,10 @@
             Estado = estado;
             Cep = cep;
         }
+
+        public Endereco()
+        {
+
+        }
     }
 }
