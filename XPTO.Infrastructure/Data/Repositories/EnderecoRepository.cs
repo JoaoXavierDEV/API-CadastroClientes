@@ -32,7 +32,7 @@ namespace XPTO.Infrastructure.Data.Repositories
             await SaveChanges();
         }
 
-        public async void Remove(Guid id)
+        public new async Task Remover(Guid id)
         {
             var endereco = GetById(id);
 
@@ -43,7 +43,7 @@ namespace XPTO.Infrastructure.Data.Repositories
             }
         }
 
-        public async void Remove(Endereco endereco)
+        public async void Remover(Endereco endereco)
         {
             DbSet.Remove(endereco);
 

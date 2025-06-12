@@ -74,7 +74,8 @@ namespace XPTO.Application.Services
 
         public void Deletar(Guid id)
         {
-            var cliente = _clienteRepository.ObterPorId(id);
+            //var cliente = _clienteRepository.ObterPorId(id);
+            var cliente = _clienteRepository.Consultar<Cliente>().FirstOrDefault(x => x.Id == id);
 
             if (cliente is null)
             {
@@ -83,9 +84,9 @@ namespace XPTO.Application.Services
 
             if (cliente.Endereco is not null)
             {
-                var endereco = _enderecoRepository.ObterPorId(cliente.Endereco.Id);
+                //var endereco = _enderecoRepository.Consultar(). .FirstOrDefault(x => x.Id == cliente.Endereco.Id);
 
-                _enderecoRepository.Remover(endereco.Id);
+                _enderecoRepository.Remover(cliente.Endereco.Id).Wait();
             }
 
             _clienteRepository.Remover(id);
@@ -100,10 +101,9 @@ namespace XPTO.Application.Services
                 if (cliente is null)
                     throw new Exception("Cliente não encontrado");
 
-                var clienteValidade = _clienteValidator.Validate(cliente);
+                var clienteValidade = _clienteValidator.Validate(_mapper.Map<Cliente>(dto));
 
-                if (!clienteValidade.IsValid)
-                    throw new DomainExceptionValidation(clienteValidade.ToDictionary());
+                DomainExceptionValidation.When(!clienteValidade.IsValid, clienteValidade.ToDictionary());
 
                 cliente.Nome = dto.Nome;
                 cliente.Email = dto.Email;
@@ -111,8 +111,7 @@ namespace XPTO.Application.Services
 
                 if (dto.Endereco is not null)
                 {
-                    var endereco = _mapper.Map<Endereco>(dto.Endereco);
-                    var enderecoValidade = _enderecoValidator.Validate(endereco);
+                    var enderecoValidade = _enderecoValidator.Validate(_mapper.Map<Endereco>(dto.Endereco));
 
                     if (!enderecoValidade.IsValid)
                         throw new DomainExceptionValidation(enderecoValidade.ToDictionary());

@@ -39,14 +39,10 @@ namespace XPTO.Domain.Entities
         public void SetEndereco(Endereco endereco)
         {
             if (endereco is null)
-            {
                 throw new ArgumentNullException(nameof(endereco), "Endereço não pode ser nulo.");
-            }
 
             if (!endereco.EhValido())
-            {
                 throw new DomainExceptionValidation(endereco.ValidationResult.ToDictionary());
-            }
 
             if (Endereco is not null)
             {

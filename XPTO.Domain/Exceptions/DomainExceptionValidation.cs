@@ -25,5 +25,11 @@ public class DomainExceptionValidation : Exception
             throw new DomainExceptionValidation(dictionary);
     }
 
+    public static void When(bool hasError, IDictionary<string, string[]> dictionary)
+    {
+        if (hasError)
+            throw new DomainExceptionValidation(dictionary);
+    }
+
 
 }

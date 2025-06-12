@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using XPTO.Domain.Entities;
 
@@ -9,7 +10,7 @@ namespace XPTO.Application.DTOs
         {
         }
 
-        //[Key]
+        [Key]
 
         public new Guid Id { get; set; } = Guid.Empty;
 

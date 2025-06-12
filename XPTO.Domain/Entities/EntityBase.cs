@@ -14,14 +14,14 @@ namespace XPTO.Domain.Entities
 
     public abstract class EntityBase : IEntityBase
     {
-        public Guid Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
 
         [NotMapped]
         public ValidationResult ValidationResult { get; protected set; }
 
         protected EntityBase()
         {
-            Id = Guid.NewGuid();
+            //Id = Guid.NewGuid();
         }
 
         public abstract bool EhValido();

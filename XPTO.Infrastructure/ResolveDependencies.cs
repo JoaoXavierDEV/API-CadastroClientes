@@ -18,8 +18,9 @@ namespace XPTO.Infrastructure
 
             services.AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseInMemoryDatabase("xpto-database");
-
+                options.UseInMemoryDatabase("xpto-database")
+                    .EnableSensitiveDataLogging()
+                    .LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Error);
                 options.UseSeeding((x, _) =>
                 {
                     var existeDados = x.Set<Cliente>().Any();
@@ -31,7 +32,7 @@ namespace XPTO.Infrastructure
                     {
                         Console.WriteLine("Base Clientes Criada...");
 
-                        x.Set<Cliente>().AddRange(DbInitializer.Clientes);
+                        x.Set<Cliente>().AddRange(DbInitializer.DadosClientes());
                         x.SaveChanges();
                     }
 
