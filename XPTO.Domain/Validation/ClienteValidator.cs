@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using XPTO.Domain.Entities;
 
-namespace XPTO.Application.Validation
+namespace XPTO.Domain.Validation
 {
     internal sealed class ClienteValidator : AbstractValidator<Cliente>
     {
@@ -17,6 +17,7 @@ namespace XPTO.Application.Validation
                 .Length(1, 50).WithMessage("O email deve ter entre 1 e 50 caracteres.");
 
             RuleFor(c => c.Telefone)
+                .Length(1, 15).WithMessage("O Telefone deve ter entre 1 e 15 caracteres.")
                 .MaximumLength(15).WithMessage("O telefone deve ter no máximo 15 caracteres.");
 
         }

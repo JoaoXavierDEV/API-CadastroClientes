@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Application.DTOs
@@ -9,6 +10,7 @@ namespace XPTO.Application.DTOs
         }
 
         //[Key]
+
         public new Guid Id { get; set; } = Guid.Empty;
 
         //[Required(ErrorMessage = "O Nome é Obrigatório")]
@@ -16,7 +18,8 @@ namespace XPTO.Application.DTOs
         public string Nome { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public string Telefone { get; set; } = string.Empty;
+        [NotMapped]
 
-        public EnderecoDTO Endereco { get; set; } = new EnderecoDTO();
+        public EnderecoDTO? Endereco { get; set; } = new EnderecoDTO();
     }
 }

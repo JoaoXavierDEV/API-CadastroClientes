@@ -30,6 +30,8 @@ namespace XPTO.Infrastructure.Data.Mappings
                 .IsRequired()
                 .HasMaxLength(8);
 
+            builder.Ignore(x => x.ValidationResult);
+
         }
     }
 

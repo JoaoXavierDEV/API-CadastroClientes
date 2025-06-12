@@ -1,4 +1,5 @@
-﻿using XPTO.Domain.Exceptions;
+﻿using FluentValidation.Results;
+using XPTO.Domain.Validation;
 
 namespace XPTO.Domain.Entities
 {
@@ -7,11 +8,14 @@ namespace XPTO.Domain.Entities
         public virtual string Nome { get; set; }
         public virtual string Email { get; set; }
         public virtual string Telefone { get; set; }
-        public virtual Endereco Endereco { get; set; }
+        public virtual Endereco? Endereco { get; set; }
 
         public Cliente()
         {
-
+            Nome = string.Empty;
+            Email = string.Empty;
+            Telefone = string.Empty;
+            Endereco = null;
         }
 
         public Cliente(string nome, string email, string telefone, Endereco? endereco = null)
@@ -22,15 +26,11 @@ namespace XPTO.Domain.Entities
             Endereco = endereco;
         }
 
-        private void ValidateDomain(string name)
+
+        public override bool EhValido()
         {
-            DomainExceptionValidation.When(string.IsNullOrEmpty(name), nameof(name),
-                "Invalid name.Name is required");
-
-            DomainExceptionValidation.When(name.Length < 3, nameof(name),
-               "Invalid name, too short, minimum 3 characters");
-
-            Nome = name;
+            ValidationResult = new ClienteValidator().Validate(this);
+            return ValidationResult.IsValid;
         }
 
     }

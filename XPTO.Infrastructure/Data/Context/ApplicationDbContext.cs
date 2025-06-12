@@ -1,5 +1,4 @@
-﻿using System.Diagnostics;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Infrastructure.Data.Context
@@ -24,8 +23,7 @@ namespace XPTO.Infrastructure.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            Console.WriteLine("Configuring ApplicationDbContext...");
-            Debug.WriteLine("Configuring ApplicationDbContext...");
+            // Console.WriteLine("Configuring ApplicationDbContext...");
 
             //optionsBuilder
             //    .UseInMemoryDatabase("xpto-database")

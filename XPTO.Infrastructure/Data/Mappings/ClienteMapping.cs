@@ -26,7 +26,16 @@ namespace XPTO.Infrastructure.Data.Mappings
             builder.Property(a => a.Telefone)
                 .HasMaxLength(15);
 
-            builder.HasOne(a => a.Endereco);
+            //builder.Property(a => a.Endereco).IsRequired(false);
+
+            builder
+              .HasOne(a => a.Endereco)
+              .WithOne()
+              .HasForeignKey<Endereco>(e => e.Id)
+              .IsRequired(false);
+
+            //builder.Ignore(x => x.ValidationResult);
+
         }
     }
 

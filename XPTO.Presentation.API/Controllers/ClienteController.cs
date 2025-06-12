@@ -32,7 +32,6 @@ namespace XPTO.Presentation.API.Controllers
             return _clienteService.ObterTodosClientes().ToList();
         }
 
-
         [HttpGet("/{id:guid}", Name = "Obter um cliente por ID", Order = 2)]
         public ActionResult<ClienteDTO> ObterClientePorID(Guid id)
         {
@@ -88,6 +87,11 @@ namespace XPTO.Presentation.API.Controllers
                 _clienteService.Atualizar(dto);
 
                 return Ok();
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                var problemDetails = new ValidationProblemDetails(ex.Dictionary);
+                return ValidationProblem(problemDetails);
             }
             catch (Exception ex)
             {

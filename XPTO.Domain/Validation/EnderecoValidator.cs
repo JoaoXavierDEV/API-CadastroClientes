@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using XPTO.Domain.Entities;
 
-namespace XPTO.Application.Validation
+namespace XPTO.Domain.Validation
 {
     internal sealed class EnderecoValidator : AbstractValidator<Endereco>
     {

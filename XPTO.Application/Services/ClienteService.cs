@@ -13,14 +13,16 @@ namespace XPTO.Application.Services
         private readonly IClienteRepository _clienteRepository;
         private readonly IEnderecoRepository _enderecoRepository;
         private readonly IMapper _mapper;
-        private readonly IValidator<Cliente> _validator;
+        private readonly IValidator<Cliente> _clienteValidator;
+        private readonly IValidator<Endereco> _enderecoValidator;
 
-        public ClienteService(IClienteRepository clienteRepository, IMapper mapper, IValidator<Cliente> validator, IEnderecoRepository enderecoRepository)
+        public ClienteService(IClienteRepository clienteRepository, IMapper mapper, IValidator<Cliente> validator, IEnderecoRepository enderecoRepository, IValidator<Endereco> enderecoValidator)
         {
             _clienteRepository = clienteRepository;
             _mapper = mapper;
-            _validator = validator;
+            _clienteValidator = validator;
             _enderecoRepository = enderecoRepository;
+            _enderecoValidator = enderecoValidator;
         }
 
         public void Adicionar(ClienteDTO clienteDto)
@@ -34,10 +36,18 @@ namespace XPTO.Application.Services
 
             var cliente = _mapper.Map<Cliente>(clienteDto);
 
-            var entityValid = _validator.Validate(cliente);
+            var clienteValidade = _clienteValidator.Validate(cliente);
 
-            if (!entityValid.IsValid)
-                throw new DomainExceptionValidation(entityValid.ToDictionary());
+            if (!clienteValidade.IsValid)
+                throw new DomainExceptionValidation(clienteValidade.ToDictionary());
+
+            if (cliente.Endereco is not null)
+            {
+                var enderecoValidade = _enderecoValidator.Validate(cliente.Endereco);
+
+                if (!enderecoValidade.IsValid)
+                    throw new DomainExceptionValidation(enderecoValidade.ToDictionary());
+            }
 
             _clienteRepository.Adicionar(cliente);
         }
@@ -71,9 +81,12 @@ namespace XPTO.Application.Services
                 throw new Exception("Cliente não encontrado.");
             }
 
-            var endereco = _enderecoRepository.ObterPorId(cliente.Endereco.Id);
+            if (cliente.Endereco is not null)
+            {
+                var endereco = _enderecoRepository.ObterPorId(cliente.Endereco.Id);
 
-            _enderecoRepository.Remover(endereco.Id);
+                _enderecoRepository.Remover(endereco.Id);
+            }
 
             _clienteRepository.Remover(id);
         }
@@ -84,15 +97,48 @@ namespace XPTO.Application.Services
             {
                 var cliente = _clienteRepository.ObterPorId(dto.Id);
 
+                var clienteValidade = _clienteValidator.Validate(cliente);
+
+                if (!clienteValidade.IsValid)
+                    throw new DomainExceptionValidation(clienteValidade.ToDictionary());
+
                 cliente.Nome = dto.Nome;
                 cliente.Email = dto.Email;
                 cliente.Telefone = dto.Telefone;
 
-                cliente.Endereco.Cidade = dto.Endereco.Cidade;
-                cliente.Endereco.Estado = dto.Endereco.Estado;
-                cliente.Endereco.Rua = dto.Endereco.Rua;
-                cliente.Endereco.Numero = dto.Endereco.Numero;
-                cliente.Endereco.Cep = dto.Endereco.Cep;
+                if (dto.Endereco is not null)
+                {
+                    var endereco = _mapper.Map<Endereco>(dto.Endereco);
+                    var enderecoValidade = _enderecoValidator.Validate(endereco);
+
+                    if (!enderecoValidade.IsValid)
+                        throw new DomainExceptionValidation(enderecoValidade.ToDictionary());
+
+                    var novoEndereco = new Endereco()
+                    {
+                        Cidade = dto.Endereco.Cidade,
+                        Estado = dto.Endereco.Estado,
+                        Rua = dto.Endereco.Rua,
+                        Numero = dto.Endereco.Numero,
+                        Cep = dto.Endereco.Cep,
+                    };
+
+                    if (cliente.Endereco == null)
+                    {
+                        cliente.Endereco = new Endereco(rua: dto.Endereco.Rua, numero: dto.Endereco.Numero, cidade: dto.Endereco.Cidade, estado: dto.Endereco.Estado, cep: dto.Endereco.Cep);
+                    }
+                    else
+                    {
+                        cliente.Endereco.Cidade = dto.Endereco.Cidade;
+                        cliente.Endereco.Estado = dto.Endereco.Estado;
+                        cliente.Endereco.Rua = dto.Endereco.Rua;
+                        cliente.Endereco.Numero = dto.Endereco.Numero;
+                        cliente.Endereco.Cep = dto.Endereco.Cep;
+                    }
+
+                }
+
+
 
                 // cliente = _mapper.Map<Cliente>(dto);
 

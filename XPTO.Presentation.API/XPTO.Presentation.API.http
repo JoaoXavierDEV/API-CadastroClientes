@@ -1,23 +1,63 @@
-@XPTO.Presentation.API_HostAddress = http://localhost:7274
-
-# GET {{XPTO.Presentation.API_HostAddress}}/weatherforecast/
-# Accept: application/json
+@XPTO.Presentation.API_HostAddress = https://localhost:7274
 
 
-POST {{XPTO.Presentation.API_HostAddress}}/Cliente
+### POST COM ENDERECO
+POST {{XPTO.Presentation.API_HostAddress}}/Clientes
+Content-Type: application/json
+  {
+    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+    "nome": "string",
+    "email": "string@outlook.com",
+    "telefone": "string",
+    "endereco": {
+      "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+      "rua": "string",
+      "numero": "string",
+      "cidade": "string",
+      "estado": "RJ",
+      "cep": "26220-999"
+    }
+  }
+
+###
+
+### POST SEM ENDERECO
+POST {{XPTO.Presentation.API_HostAddress}}/Clientes
 Content-Type: application/json
 {
-  "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-  "nome": "string",
-  "email": "string",
-  "telefone": "string",
-  "endereco": {
-    "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
-    "rua": "string",
-    "numero": "string",
-    "cidade": "string",
-    "estado": "string",
-    "cep": "string"
-  }
+    "nome": "Endereco Nulo",
+    "email": "string@gmail",
+    "telefone": "string",
+    "endereco": null
 }
+###
+
+
+DELETE {{XPTO.Presentation.API_HostAddress}}/ac0ff7b5-85fc-43fc-8e39-a7d5f5910582
+
+###
+
+
+### Listar Todos os clientes
+GET {{XPTO.Presentation.API_HostAddress}}/Clientes
+
+###
+PUT {{XPTO.Presentation.API_HostAddress}}/54ec1bd1-cd71-4321-990e-640e71210ff5
+Content-Type: application/json
+  {
+    "nome": "João Xavierrr",
+    "email": "joao@outlook.com",
+    "telefone": "2178985231",
+    "endereco": {
+      "rua": "Rua D",
+      "numero": "1024",
+      "cidade": "nova iguacu",
+      "estado": "RJ",
+      "cep": "20258-666",
+      "id": "A5660BBB-7C1D-4EDA-A7DC-3D4CAD94406D"
+    },
+    "id": "54ec1bd1-cd71-4321-990e-640e71210ff5"
+  }
+
+
 ###

@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using XPTO.Domain.Entities;
 using XPTO.Domain.Interfaces;
 using XPTO.Infrastructure.Data.Context;
-using XPTO.Infrastructure.Repository;
+using XPTO.Infrastructure.Data.Repositories;
 
 namespace XPTO.Infrastructure
 {

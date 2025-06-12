@@ -1,4 +1,7 @@
-﻿namespace XPTO.Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using FluentValidation.Results;
+
+namespace XPTO.Domain.Entities
 {
     public interface IDataTransferObject
     {
@@ -13,9 +16,17 @@
     {
         public Guid Id { get; set; }
 
+        [NotMapped]
+        public ValidationResult ValidationResult { get; protected set; }
+
         protected EntityBase()
         {
             Id = Guid.NewGuid();
+        }
+
+        public virtual bool EhValido()
+        {
+            throw new NotImplementedException();
         }
 
     }

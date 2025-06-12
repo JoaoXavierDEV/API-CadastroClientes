@@ -1,9 +1,8 @@
-﻿using AutonomoApp.Data.Repository;
-using XPTO.Domain.Entities;
+﻿using XPTO.Domain.Entities;
 using XPTO.Domain.Interfaces;
 using XPTO.Infrastructure.Data.Context;
 
-namespace XPTO.Infrastructure.Repository
+namespace XPTO.Infrastructure.Data.Repositories
 {
     public class EnderecoRepository : Repository<Endereco>, IEnderecoRepository
     {

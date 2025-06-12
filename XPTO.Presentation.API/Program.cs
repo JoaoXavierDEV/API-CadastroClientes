@@ -1,8 +1,11 @@
 using System.Text.Json.Serialization;
 using XPTO.Application;
+using XPTO.Domain;
 using XPTO.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddLayerDomain();
 
 builder.Services.AddLayerApplication();
 

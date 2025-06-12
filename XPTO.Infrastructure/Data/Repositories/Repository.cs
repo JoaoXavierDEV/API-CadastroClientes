@@ -4,7 +4,7 @@ using XPTO.Domain.Entities;
 using XPTO.Domain.Interfaces;
 using XPTO.Infrastructure.Data.Context;
 
-namespace AutonomoApp.Data.Repository;
+namespace XPTO.Infrastructure.Data.Repositories;
 
 public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
 {
