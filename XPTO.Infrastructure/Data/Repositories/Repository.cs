@@ -47,7 +47,7 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
     {
         try
         {
-            DbSet.Attach(entity);
+            //DbSet.Attach(entity);
 
             DbSet.Update(entity);
 

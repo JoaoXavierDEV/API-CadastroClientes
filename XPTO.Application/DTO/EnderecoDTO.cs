@@ -4,10 +4,10 @@ namespace XPTO.Application.DTOs;
 public class EnderecoDTO : IDataTransferObject
 {
     public Guid Id { get; set; }
-    public string Rua { get; set; }
-    public string Numero { get; set; }
-    public string Cidade { get; set; }
-    public string Estado { get; set; }
-    public string Cep { get; set; }
+    public string Rua { get; set; } = string.Empty;
+    public string Numero { get; set; } = string.Empty;
+    public string Cidade { get; set; } = string.Empty;
+    public string Estado { get; set; } = string.Empty;
+    public string Cep { get; set; } = string.Empty;
 
 }

@@ -97,6 +97,9 @@ namespace XPTO.Application.Services
             {
                 var cliente = _clienteRepository.ObterPorId(dto.Id);
 
+                if (cliente is null)
+                    throw new Exception("Cliente não encontrado");
+
                 var clienteValidade = _clienteValidator.Validate(cliente);
 
                 if (!clienteValidade.IsValid)
@@ -114,33 +117,10 @@ namespace XPTO.Application.Services
                     if (!enderecoValidade.IsValid)
                         throw new DomainExceptionValidation(enderecoValidade.ToDictionary());
 
-                    var novoEndereco = new Endereco()
-                    {
-                        Cidade = dto.Endereco.Cidade,
-                        Estado = dto.Endereco.Estado,
-                        Rua = dto.Endereco.Rua,
-                        Numero = dto.Endereco.Numero,
-                        Cep = dto.Endereco.Cep,
-                    };
+                    var novoEndereco = new Endereco(rua: dto.Endereco.Rua, numero: dto.Endereco.Numero, cidade: dto.Endereco.Cidade, estado: dto.Endereco.Estado, cep: dto.Endereco.Cep);
 
-                    if (cliente.Endereco == null)
-                    {
-                        cliente.Endereco = new Endereco(rua: dto.Endereco.Rua, numero: dto.Endereco.Numero, cidade: dto.Endereco.Cidade, estado: dto.Endereco.Estado, cep: dto.Endereco.Cep);
-                    }
-                    else
-                    {
-                        cliente.Endereco.Cidade = dto.Endereco.Cidade;
-                        cliente.Endereco.Estado = dto.Endereco.Estado;
-                        cliente.Endereco.Rua = dto.Endereco.Rua;
-                        cliente.Endereco.Numero = dto.Endereco.Numero;
-                        cliente.Endereco.Cep = dto.Endereco.Cep;
-                    }
-
+                    cliente.SetEndereco(novoEndereco);
                 }
-
-
-
-                // cliente = _mapper.Map<Cliente>(dto);
 
                 _clienteRepository.Atualizar(cliente);
             }

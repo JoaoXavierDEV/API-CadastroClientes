@@ -7,6 +7,7 @@ namespace XPTO.Application.Interfaces
         IEnumerable<ClienteDTO> ObterTodosClientes();
         ClienteDTO ObterPorId(Guid id);
         void Adicionar(ClienteDTO dto);
+        //Task Atualizar(ClienteDTO dto);
         void Atualizar(ClienteDTO dto);
         void Deletar(Guid id);
     }

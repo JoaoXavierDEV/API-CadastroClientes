@@ -79,19 +79,26 @@ namespace XPTO.Presentation.API.Controllers
         }
 
         [HttpPut("/{id:guid}", Name = "Atualizar um cliente existente", Order = 4)]
-        public ActionResult AtualizarCliente(System.Guid id, ClienteDTO dto)
+        public ActionResult<Cliente> AtualizarCliente(System.Guid id, ClienteDTO dto)
         {
             try
             {
                 dto.Id = id;
+
                 _clienteService.Atualizar(dto);
 
-                return Ok();
+                var clienteAtualizado = _clienteRepository.ObterPorId(id);
+
+                return Ok(clienteAtualizado);
             }
             catch (DomainExceptionValidation ex)
             {
                 var problemDetails = new ValidationProblemDetails(ex.Dictionary);
                 return ValidationProblem(problemDetails);
+            }
+            catch (AggregateException ex)
+            {
+                return BadRequest(ex.InnerException?.Message);
             }
             catch (Exception ex)
             {

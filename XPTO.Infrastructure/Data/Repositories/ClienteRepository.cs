@@ -24,12 +24,12 @@ namespace XPTO.Infrastructure.Data.Repositories
             //return DbSet.Find(id) ?? new Cliente();
         }
 
-        public async void Add(Cliente cliente)
+        public async void Adicionar(Cliente cliente)
         {
             DbSet.Add(cliente);
             await SaveChanges();
         }
-        public async void Update(Cliente cliente)
+        public new async Task Atualizar(Cliente cliente)
         {
             DbSet.Update(cliente);
             await SaveChanges();

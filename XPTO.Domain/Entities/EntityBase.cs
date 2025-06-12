@@ -24,10 +24,7 @@ namespace XPTO.Domain.Entities
             Id = Guid.NewGuid();
         }
 
-        public virtual bool EhValido()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract bool EhValido();
 
     }
 }

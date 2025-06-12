@@ -1,4 +1,5 @@
 ﻿using FluentValidation.Results;
+using XPTO.Domain.Exceptions;
 using XPTO.Domain.Validation;
 
 namespace XPTO.Domain.Entities
@@ -33,5 +34,38 @@ namespace XPTO.Domain.Entities
             return ValidationResult.IsValid;
         }
 
+        public bool hasEndereco() => Endereco is not null;
+
+        public void SetEndereco(Endereco endereco)
+        {
+            if (endereco is null)
+            {
+                throw new ArgumentNullException(nameof(endereco), "Endereço não pode ser nulo.");
+            }
+
+            if (!endereco.EhValido())
+            {
+                throw new DomainExceptionValidation(endereco.ValidationResult.ToDictionary());
+            }
+
+            if (Endereco is not null)
+            {
+                Endereco.Cidade = endereco.Cidade;
+                Endereco.Estado = endereco.Estado;
+                Endereco.Rua = endereco.Rua;
+                Endereco.Numero = endereco.Numero;
+                Endereco.Cep = endereco.Cep;
+            }
+            else
+            {
+                Endereco = endereco;
+            }
+
+
+
+        }
+
+
     }
+
 }
