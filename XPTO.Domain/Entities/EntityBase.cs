@@ -17,12 +17,14 @@ namespace XPTO.Domain.Entities
         public Guid Id { get; set; } = Guid.NewGuid();
 
         [NotMapped]
+        [System.Text.Json.Serialization.JsonIgnore]
         public ValidationResult ValidationResult { get; protected set; }
 
         protected EntityBase()
         {
             //Id = Guid.NewGuid();
         }
+
 
         public abstract bool EhValido();
 

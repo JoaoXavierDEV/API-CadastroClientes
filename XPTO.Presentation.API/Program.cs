@@ -1,7 +1,7 @@
-using System.Text.Json.Serialization;
 using XPTO.Application;
 using XPTO.Domain;
 using XPTO.Infrastructure;
+using XPTO.Presentation.API.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -9,28 +9,16 @@ builder.Services.AddLayerDomain();
 builder.Services.AddLayerApplication();
 builder.Services.AddLayerInfrastructure();
 
-builder.Services.AddControllers().AddJsonOptions(options =>
-{
-    options.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
-    options.JsonSerializerOptions.WriteIndented = true;
-});
+builder.AddWebApiConfig();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerConfig();
+
+builder.Services.AddWebApiConfig();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseApiConfig();
 
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
-
-app.MapControllers();
+app.UseSwaggerConfiguration();
 
 app.Run();

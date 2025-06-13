@@ -1,3 +1,4 @@
+using Asp.Versioning;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using XPTO.Application.DTOs;
@@ -6,10 +7,11 @@ using XPTO.Domain.Entities;
 using XPTO.Domain.Exceptions;
 using XPTO.Domain.Interfaces;
 
-namespace XPTO.Presentation.API.Controllers
+namespace XPTO.Presentation.API.Controllers.v1
 {
     [ApiController]
-    [Route("Clientes")]
+    [ApiVersion("1.0", Deprecated = false)]
+    [Route("api/v{version:apiVersion}/Clientes")]
     [Produces("application/json")]
     public class ClienteController : ControllerBase
     {
@@ -79,7 +81,7 @@ namespace XPTO.Presentation.API.Controllers
         }
 
         [HttpPut("/{id:guid}", Name = "Atualizar um cliente existente", Order = 4)]
-        public ActionResult<Cliente> AtualizarCliente(System.Guid id, ClienteDTO dto)
+        public ActionResult<Cliente> AtualizarCliente(Guid id, ClienteDTO dto)
         {
             try
             {
