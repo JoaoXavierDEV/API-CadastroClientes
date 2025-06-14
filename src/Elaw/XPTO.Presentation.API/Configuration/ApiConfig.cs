@@ -59,7 +59,7 @@ namespace XPTO.Presentation.API.Configuration
             services.Configure<ApiBehaviorOptions>(
                 op =>
                 {
-                    op.SuppressModelStateInvalidFilter = true;
+                    //op.SuppressModelStateInvalidFilter = true;
                 });
 
             services.AddEndpointsApiExplorer();
@@ -87,16 +87,12 @@ namespace XPTO.Presentation.API.Configuration
             }
             else
             {
-                // funciona em modo dev, refatorar
-                //app.UseCors("Production");
 
                 app.UseHsts();
             }
 
-            app.UseDeveloperExceptionPage();
             //app.UseMiddleware<ExceptionMiddleware>();
 
-            // redirecionar automaticamente para https
             app.UseHttpsRedirection();
 
             app.UseRouting();
