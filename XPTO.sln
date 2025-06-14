@@ -18,15 +18,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{9F0E1E
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application", "Application", "{A082A5B8-ACA0-4B37-BBCC-628CC0842F07}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Domain", "XPTO.Domain\XPTO.Domain.csproj", "{CC9A81B1-D269-4526-AA1C-F056C7210FDF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Domain", "src\Elaw\XPTO.Domain\XPTO.Domain.csproj", "{CC9A81B1-D269-4526-AA1C-F056C7210FDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Infrastructure", "XPTO.Infrastructure\XPTO.Infrastructure.csproj", "{E5EC8417-5B0D-4DC1-8C5E-FB3701423444}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Infrastructure", "src\Elaw\XPTO.Infrastructure\XPTO.Infrastructure.csproj", "{E5EC8417-5B0D-4DC1-8C5E-FB3701423444}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Application", "XPTO.Application\XPTO.Application.csproj", "{3268E7FB-8570-4CEB-858D-EC765F16FC50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Application", "src\Elaw\XPTO.Application\XPTO.Application.csproj", "{3268E7FB-8570-4CEB-858D-EC765F16FC50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8986289B-C40D-434A-A03A-C2A377C9C263}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Domain.Tests", "..\..\tests\XPTO.Domain.Tests\XPTO.Domain.Tests.csproj", "{07910C55-469C-4301-809F-3CABB389A259}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Domain.Tests", "tests\XPTO.Domain.Tests\XPTO.Domain.Tests.csproj", "{07910C55-469C-4301-809F-3CABB389A259}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
