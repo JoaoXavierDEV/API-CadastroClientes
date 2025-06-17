@@ -13,6 +13,7 @@ public interface IRepository<TEntity> : IDisposable where TEntity : EntityBase
     Task<List<TEntity>> ObterTodos();
     Task Atualizar(TEntity entity);
     Task Remover(Guid id);
+    Task Remover(TEntity entity);
     Task<IEnumerable<TEntity>> Buscar(Expression<Func<TEntity, bool>> predicate);
     Task<int> SaveChanges();
 }

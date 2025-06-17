@@ -5,7 +5,7 @@ namespace XPTO.Domain.Entities
 {
     public interface IDataTransferObject
     {
-        Guid Id { get; set; }
+        abstract Guid Id { get; set; }
     }
     public interface IEntityBase
     {

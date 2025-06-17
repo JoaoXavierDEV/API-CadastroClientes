@@ -56,10 +56,9 @@ namespace XPTO.Domain.Entities
             {
                 Endereco = endereco;
             }
-
-
-
         }
+
+        public void RemoverEndereco() => this.Endereco = null;
 
 
     }

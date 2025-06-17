@@ -24,11 +24,11 @@ namespace XPTO.Infrastructure.Data.Repositories
             //return DbSet.Find(id) ?? new Cliente();
         }
 
-        public async void Adicionar(Cliente cliente)
-        {
-            DbSet.Add(cliente);
-            await SaveChanges();
-        }
+        //public async void Adicionar(Cliente cliente)
+        //{
+        //    DbSet.Add(cliente);
+        //    await SaveChanges();
+        //}
         public new async Task Atualizar(Cliente cliente)
         {
             DbSet.Update(cliente);
@@ -44,12 +44,7 @@ namespace XPTO.Infrastructure.Data.Repositories
                 await SaveChanges();
             }
         }
-        public async void Remover(Cliente cliente)
-        {
-            DbSet.Remove(cliente);
 
-            await SaveChanges();
-        }
 
     }
 

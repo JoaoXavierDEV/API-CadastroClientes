@@ -66,6 +66,11 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
         await SaveChanges();
     }
 
+    public async Task Remover(T entity)
+    {
+        DbSet.Remove(entity);
+        await SaveChanges();
+    }
 
     public async Task<int> SaveChanges()
     {
@@ -80,4 +85,5 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
     {
         return Consultar<T>();
     }
+
 }

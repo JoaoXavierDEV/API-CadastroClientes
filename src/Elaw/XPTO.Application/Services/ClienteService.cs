@@ -79,7 +79,7 @@ namespace XPTO.Application.Services
 
             if (cliente is null)
             {
-                throw new Exception("Cliente não encontrado.");
+                throw new KeyNotFoundException("Cliente não encontrado.");
             }
 
             if (cliente.Endereco is not null)
@@ -119,6 +119,10 @@ namespace XPTO.Application.Services
                     var novoEndereco = new Endereco(rua: dto.Endereco.Rua, numero: dto.Endereco.Numero, cidade: dto.Endereco.Cidade, estado: dto.Endereco.Estado, cep: dto.Endereco.Cep);
 
                     cliente.SetEndereco(novoEndereco);
+                }
+                else
+                {
+                    cliente.RemoverEndereco();
                 }
 
                 _clienteRepository.Atualizar(cliente);

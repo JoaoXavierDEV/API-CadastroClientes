@@ -19,7 +19,16 @@ namespace XPTO.Presentation.API.Controllers.v2
         [HttpGet(Name = "Listar Todos os clientes", Order = 1)]
         public List<ClienteDTO> GetClientes()
         {
-            return new List<ClienteDTO>();
+            return new List<ClienteDTO>() {
+                new ClienteDTO
+                {
+                    Id = Guid.NewGuid(),
+                    Nome = "Alexandre Vale",
+                    Email = "alevale@gmail.com",
+                    Telefone = "21980827649",
+                    Endereco = null
+                }
+            };
         }
     }
 }

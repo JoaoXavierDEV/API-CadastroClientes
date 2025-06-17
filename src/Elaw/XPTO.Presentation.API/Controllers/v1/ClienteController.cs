@@ -67,7 +67,7 @@ namespace XPTO.Presentation.API.Controllers.v1
 
                 _clienteService.Adicionar(dto);
 
-                return Ok(dto);
+                return Created("api/v1/Clientes", dto);
             }
             catch (DomainExceptionValidation ex)
             {
@@ -120,6 +120,11 @@ namespace XPTO.Presentation.API.Controllers.v1
                 //return Ok(new { message = "Cliente removido com sucesso." });
 
                 return Ok("Cliente removido com sucesso.");
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound($"Erro ao remover cliente: {ex.Message}");
+                //return StatusCode(204, $"Id: {id} Erro ao remover cliente: {ex.Message}");
             }
             catch (Exception ex)
             {

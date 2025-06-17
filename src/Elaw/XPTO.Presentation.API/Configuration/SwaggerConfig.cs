@@ -1,5 +1,4 @@
-﻿using System.Reflection;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Asp.Versioning.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.Extensions.Options;
@@ -19,7 +18,7 @@ namespace XPTO.Presentation.API.Configuration
             {
                 c.OperationFilter<SwaggerDefaultValues>();
                 c.EnableAnnotations();
-                var xmlFilename = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlFilename = $"{System.Reflection.Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFilename);
                 if (File.Exists(xmlPath)) c.IncludeXmlComments(xmlPath);
             });
