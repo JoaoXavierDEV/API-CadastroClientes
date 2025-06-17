@@ -28,6 +28,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8986289B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.Domain.Tests", "tests\XPTO.Domain.Tests\XPTO.Domain.Tests.csproj", "{07910C55-469C-4301-809F-3CABB389A259}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XPTO.TesteDeIntegracao", "tests\XPTO.TesteDeIntegracao\XPTO.TesteDeIntegracao.csproj", "{9E90CBED-8465-4A21-B5E1-991280CDF82F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +56,10 @@ Global
 		{07910C55-469C-4301-809F-3CABB389A259}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07910C55-469C-4301-809F-3CABB389A259}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07910C55-469C-4301-809F-3CABB389A259}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E90CBED-8465-4A21-B5E1-991280CDF82F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E90CBED-8465-4A21-B5E1-991280CDF82F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E90CBED-8465-4A21-B5E1-991280CDF82F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E90CBED-8465-4A21-B5E1-991280CDF82F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +70,7 @@ Global
 		{E5EC8417-5B0D-4DC1-8C5E-FB3701423444} = {1ECB41C2-A4E2-4590-B452-A4C7D27D87AF}
 		{3268E7FB-8570-4CEB-858D-EC765F16FC50} = {A082A5B8-ACA0-4B37-BBCC-628CC0842F07}
 		{07910C55-469C-4301-809F-3CABB389A259} = {8986289B-C40D-434A-A03A-C2A377C9C263}
+		{9E90CBED-8465-4A21-B5E1-991280CDF82F} = {8986289B-C40D-434A-A03A-C2A377C9C263}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7A6AC051-0E31-402D-BCD8-FD302DE49BBE}
