@@ -88,5 +88,6 @@ namespace XPTO.Domain.Tests
             Assert.NotEmpty(cliente.ValidationResult.Errors);
         }
 
+
     }
 }

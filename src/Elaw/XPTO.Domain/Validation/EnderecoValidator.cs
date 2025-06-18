@@ -3,7 +3,7 @@ using XPTO.Domain.Entities;
 
 namespace XPTO.Domain.Validation
 {
-    internal sealed class EnderecoValidator : AbstractValidator<Endereco>
+    public sealed class EnderecoValidator : AbstractValidator<Endereco>
     {
         public EnderecoValidator()
         {

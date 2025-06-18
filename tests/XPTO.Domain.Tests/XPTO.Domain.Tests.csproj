@@ -14,7 +14,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.6" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageReference Include="Moq" Version="4.20.72" />
     <PackageReference Include="xunit" Version="2.9.3" />
     <PackageReference Include="xunit.runner.visualstudio" Version="3.1.1">
       <PrivateAssets>all</PrivateAssets>
@@ -23,11 +25,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\Elaw\XPTO.Application\XPTO.Application.csproj" />
     <ProjectReference Include="..\..\src\Elaw\XPTO.Domain\XPTO.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Elaw\XPTO.Presentation.API\XPTO.Presentation.API.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Using Include="Xunit" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NovaPasta\" />
   </ItemGroup>
 
 </Project>

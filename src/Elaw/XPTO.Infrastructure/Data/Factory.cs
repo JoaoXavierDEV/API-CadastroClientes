@@ -8,7 +8,7 @@ namespace XPTO.Infrastructure.Data;
 
 public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
 {
-    public ApplicationDbContext CreateDbContext(string[] args)
+    public ApplicationDbContext CreateDbContext(string[]? args = null)
     {
         var environmentName = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 

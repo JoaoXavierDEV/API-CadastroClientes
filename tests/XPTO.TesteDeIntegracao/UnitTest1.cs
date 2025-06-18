@@ -45,7 +45,7 @@ public class ClienteControllerTests
         // Assert
         var json = await response.Content.ReadAsStringAsync();
 
-        var clientes = JsonSerializer.Deserialize<List<ClienteDTO>>(json, _jsonOptions);
+        var clientes = JsonSerializer.Deserialize<List<ClienteDTO>>(json);
 
         Assert.NotNull(clientes);
 

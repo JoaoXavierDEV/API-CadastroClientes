@@ -22,6 +22,8 @@ namespace XPTO.Presentation.API.Configuration
 
         public static IServiceCollection AddWebApiConfig(this IServiceCollection services)
         {
+
+
             services.AddControllers(options =>
             {
                 ////using Microsoft.AspNetCore.Mvc.Formatters;
@@ -32,6 +34,10 @@ namespace XPTO.Presentation.API.Configuration
             {
                 op.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles;
                 op.JsonSerializerOptions.WriteIndented = true;
+                //op.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+                // altera a saida do json na api para "camelCase" | null altera para "PascalCase" NomePropriedade
+                // op.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+                op.JsonSerializerOptions.PropertyNamingPolicy = null;
             });
 
 

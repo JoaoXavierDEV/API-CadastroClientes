@@ -1,0 +1,446 @@
+{
+	"info": {
+		"_postman_id": "138b55bf-80bc-4ea2-a95f-9016e06a9e39",
+		"name": "XPTO.Elaw",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43772363"
+	},
+	"item": [
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Remover Cliente",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/323799cb-54e0-4804-8076-b2ab1f4a152d?api-version=1.0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"323799cb-54e0-4804-8076-b2ab1f4a152d"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Cliente + Endereco",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/ac0ff7b5-85fc-43fc-8e39-a7d5f5910582?api-version=1.0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"ac0ff7b5-85fc-43fc-8e39-a7d5f5910582"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Cliente Inválido",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/ac0ff7b5-85fc-43fc-8e39-a7d5f5910586?api-version=1.0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"ac0ff7b5-85fc-43fc-8e39-a7d5f5910586"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remover Cliente Copy",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/3fa85f64-5717-4562-b3fc-2c963f66afa6?api-version=1.0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"3fa85f64-5717-4562-b3fc-2c963f66afa6"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Get",
+			"item": [
+				{
+					"name": "Todos os Clientes",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Response status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.equal(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response time is less than 200ms\", function () {\r",
+									"    pm.expect(pm.response.responseTime).to.be.below(200);\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Response matches the expected schema\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+									"\r",
+									"    responseData.forEach(cliente => {\r",
+									"        pm.expect(cliente).to.be.an('object').that.includes.keys('id', 'nome', 'email', 'telefone', 'endereco');\r",
+									"        \r",
+									"        pm.expect(cliente.id).to.be.a('string');\r",
+									"        pm.expect(cliente.nome).to.be.a('string');\r",
+									"        pm.expect(cliente.email).to.be.a('string').and.to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/); // Valid email format\r",
+									"        pm.expect(cliente.telefone).to.be.a('string');\r",
+									"\r",
+									"\t\tif(cliente.endereco != null){\r",
+									"\r",
+									"\t\t\tconst endereco = cliente.endereco;\r",
+									"\r",
+									"\t\t\tpm.expect(endereco).to.be.an('object').that.includes.keys('id', 'rua', 'numero', 'cidade', 'estado', 'cep');\r",
+									"\t\t\t\r",
+									"\t\t\tpm.expect(endereco.id).to.be.a('string');\r",
+									"\t\t\tpm.expect(endereco.rua).to.be.a('string');\r",
+									"\t\t\tpm.expect(endereco.numero).to.be.a('string');\r",
+									"\t\t\tpm.expect(endereco.cidade).to.be.a('string');\r",
+									"\t\t\tpm.expect(endereco.estado).to.be.a('string');\r",
+									"\t\t\tpm.expect(endereco.cep).to.be.a('string');\r",
+									"\t\t}\r",
+									"\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Email is in a valid format\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+									"    responseData.forEach(cliente => {\r",
+									"        pm.expect(cliente.email).to.exist;\r",
+									"        pm.expect(cliente.email).to.match(/^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/, \"Email format is invalid\");\r",
+									"    });\r",
+									"});\r",
+									"\r",
+									"\r",
+									"pm.test(\"Nome is a non-empty string\", function () {\r",
+									"    const responseData = pm.response.json();\r",
+									"    \r",
+									"    pm.expect(responseData).to.be.an('array').that.is.not.empty;\r",
+									"    responseData.forEach(cliente => {\r",
+									"        pm.expect(cliente.nome).to.be.a('string').and.to.have.lengthOf.at.least(1, \"Nome should not be empty\");\r",
+									"    });\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/api/v1/Clientes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"v1",
+								"Clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter Por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:44302/ac0ff7b5-85fc-43fc-8e39-a7d5f5910582?api-version=1.0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"ac0ff7b5-85fc-43fc-8e39-a7d5f5910582"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Adicionar Cliente Válido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"nome\": \"José Xavier\",\r\n  \"email\": \"jose@outlook.com\",\r\n  \"telefone\": \"21 9 8562 6632\",\r\n  \"endereco\": {\r\n    \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n    \"rua\": \"Rua Prefeito Jose\",\r\n    \"numero\": \"500\",\r\n    \"cidade\": \"Nova Iguaçu\",\r\n    \"estado\": \"RJ\",\r\n    \"cep\": \"21654-882\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/v1/Clientes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"v1",
+								"Clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Cliente com email já cadastrado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"nome\": \"José Xavier\",\r\n  \"email\": \"jose@outlook.com\",\r\n  \"telefone\": \"21 9 8562 6632\",\r\n  \"endereco\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/v1/Clientes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"v1",
+								"Clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Cliente Sem Endereco",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"nome\": \"José Xavier\",\r\n  \"email\": \"jose@outlook.com\",\r\n  \"telefone\": \"21 9 8562 6632\",\r\n  \"endereco\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/v1/Clientes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"v1",
+								"Clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Adicionar Cliente Invalido",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"3fa85f64-5717-4562-b3fc-2c963f66afa6\",\r\n  \"nome\": \"a\",\r\n  \"email\": \"outlook.com\",\r\n  \"telefone\": \"21 9 8562 6632\",\r\n  \"endereco\": null\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44302/api/v1/Clientes",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"api",
+								"v1",
+								"Clientes"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "PUT",
+			"item": [
+				{
+					"name": "Atualizar Cliente",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"id\": \"ac0ff7b5-85fc-43fc-8e39-a7d5f5910582\",\r\n    \"nome\": \"João Fernando Moura Xavier\",\r\n    \"email\": \"joao_jfmx@outlook.com\",\r\n    \"telefone\": \"21 97898 5231\",\r\n    \"endereco\": {\r\n      \"id\": \"962ae9d1-a200-4fbf-81aa-72837c092b67\",\r\n      \"rua\": \"Rua Prefeito Jose\",\r\n      \"numero\": \"1024\",\r\n      \"cidade\": \"Nova Iguaçu\",\r\n      \"estado\": \"RJ\",\r\n      \"cep\": \"20258-987\"\r\n    }\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44302/ac0ff7b5-85fc-43fc-8e39-a7d5f5910582?api-version=1.0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"ac0ff7b5-85fc-43fc-8e39-a7d5f5910582"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar Cliente remover endereço",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "  {\r\n    \"id\": \"ac0ff7b5-85fc-43fc-8e39-a7d5f5910582\",\r\n    \"nome\": \"João Fernando Moura Xavier\",\r\n    \"email\": \"joao_jfmx@outlook.com\",\r\n    \"telefone\": \"21 97898 5231\",\r\n    \"endereco\": null\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44302/ac0ff7b5-85fc-43fc-8e39-a7d5f5910582?api-version=1.0",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44302",
+							"path": [
+								"ac0ff7b5-85fc-43fc-8e39-a7d5f5910582"
+							],
+							"query": [
+								{
+									"key": "api-version",
+									"value": "1.0"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

@@ -9,6 +9,13 @@ using XPTO.Domain.Interfaces;
 
 namespace XPTO.Presentation.API.Controllers.v1
 {
+    /// <summary>
+    /// Provides endpoints for managing client data, including operations to retrieve, create, update, and delete
+    /// clients.
+    /// </summary>
+    /// <remarks>This controller handles client-related operations and exposes RESTful APIs for interacting
+    /// with client data. It uses dependency injection to access services and repositories for business logic and data
+    /// persistence. The controller is versioned and follows the API versioning conventions.</remarks>
     [ApiController]
     [ApiVersion("1.0", Deprecated = false)]
     [Route("api/v{version:apiVersion}/Clientes")]
@@ -28,6 +35,13 @@ namespace XPTO.Presentation.API.Controllers.v1
             _validator = validator;
         }
 
+        /// <summary>
+        /// Retorna uma lista de Clientes.
+        /// </summary>
+        /// <remarks>This method returns a collection of client data transfer objects (DTOs) representing
+        /// all clients. The returned list will be empty if no clients are available.</remarks>
+        /// <returns>A list of <see cref="ClienteDTO"/> objects containing information about all clients.</returns>
+        [Produces("application/json")]
         [HttpGet(Name = "Listar Todos os clientes", Order = 1)]
         public List<ClienteDTO> GetClientes()
         {
@@ -64,6 +78,8 @@ namespace XPTO.Presentation.API.Controllers.v1
                     var problemDetails = new ValidationProblemDetails(ModelState);
                     return BadRequest(problemDetails);
                 }
+                _logger.LogInformation("Info - Preparando um novo cliente com o nome: {Nome}", dto.Nome);
+                _logger.LogDebug("Debug - Preparando um novo cliente com o nome: {Nome}", dto.Nome);
 
                 _clienteService.Adicionar(dto);
 

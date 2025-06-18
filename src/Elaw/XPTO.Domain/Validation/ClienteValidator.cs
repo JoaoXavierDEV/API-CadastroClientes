@@ -3,7 +3,7 @@ using XPTO.Domain.Entities;
 
 namespace XPTO.Domain.Validation
 {
-    internal sealed class ClienteValidator : AbstractValidator<Cliente>
+    public sealed class ClienteValidator : AbstractValidator<Cliente>
     {
         public ClienteValidator()
         {
