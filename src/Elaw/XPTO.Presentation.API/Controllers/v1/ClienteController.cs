@@ -41,7 +41,8 @@ namespace XPTO.Presentation.API.Controllers.v1
         /// <remarks>This method returns a collection of client data transfer objects (DTOs) representing
         /// all clients. The returned list will be empty if no clients are available.</remarks>
         /// <returns>A list of <see cref="ClienteDTO"/> objects containing information about all clients.</returns>
-        [Produces("application/json")]
+        //[Produces("application/json")]
+        [Produces(typeof(ClienteDTO))]
         [HttpGet(Name = "Listar Todos os clientes", Order = 1)]
         public List<ClienteDTO> GetClientes()
         {
@@ -49,6 +50,7 @@ namespace XPTO.Presentation.API.Controllers.v1
         }
 
         [HttpGet("/{id:guid}", Name = "Obter um cliente por ID", Order = 2)]
+        [Produces(typeof(ClienteDTO))]
         public ActionResult<ClienteDTO> ObterClientePorID(Guid id)
         {
             try
@@ -69,6 +71,7 @@ namespace XPTO.Presentation.API.Controllers.v1
         }
 
         [HttpPost(Name = "Criar um novo cliente", Order = 3)]
+        [Produces(typeof(ClienteDTO))]
         public ActionResult CriarCliente(ClienteDTO dto)
         {
             try
@@ -97,6 +100,8 @@ namespace XPTO.Presentation.API.Controllers.v1
         }
 
         [HttpPut("/{id:guid}", Name = "Atualizar um cliente existente", Order = 4)]
+        [Consumes("application/json")]
+        [Produces(typeof(ClienteDTO))]
         public ActionResult<Cliente> AtualizarCliente(Guid id, ClienteDTO dto)
         {
             try
@@ -125,6 +130,7 @@ namespace XPTO.Presentation.API.Controllers.v1
         }
 
         [HttpDelete("/{id:guid}", Name = "Remover um cliente", Order = 5)]
+        [Produces(typeof(ClienteDTO))]
         public ActionResult DeletarCliente(Guid id)
         {
             try

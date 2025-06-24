@@ -1,10 +1,9 @@
 using System.ComponentModel.DataAnnotations;
-using System.Text.Json.Serialization;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Application.DTOs
 {
-    [JsonSerializable(typeof(ClienteDTO))]
+    //[JsonSerializable(typeof(ClienteDTO))]
     public class ClienteDTO : IDataTransferObject
     {
         [Key]
