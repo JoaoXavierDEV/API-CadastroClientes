@@ -1,7 +1,7 @@
 using Asp.Versioning;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
-using XPTO.Application.DTOs;
+using XPTO.Application.DTO;
 using XPTO.Application.Interfaces;
 using XPTO.Domain.Entities;
 using XPTO.Domain.Exceptions;
@@ -20,20 +20,12 @@ namespace XPTO.Presentation.API.Controllers.v1
     [ApiVersion("1.0", Deprecated = false)]
     [Route("api/v{version:apiVersion}/Clientes")]
     [Produces("application/json")]
-    public class ClienteController : ControllerBase
+    public class ClienteController(ILogger<ClienteController> logger, IClienteService clienteService, IClienteRepository clienteRepository, IValidator<Cliente> validator) : ControllerBase
     {
-        private readonly ILogger<ClienteController> _logger;
-        private readonly IClienteService _clienteService;
-        private readonly IClienteRepository _clienteRepository;
-        private readonly IValidator<Cliente> _validator;
-
-        public ClienteController(ILogger<ClienteController> logger, IClienteService clienteService, IClienteRepository clienteRepository, IValidator<Cliente> validator)
-        {
-            _logger = logger;
-            _clienteService = clienteService;
-            _clienteRepository = clienteRepository;
-            _validator = validator;
-        }
+        private readonly ILogger<ClienteController> _logger = logger;
+        private readonly IClienteService _clienteService = clienteService;
+        private readonly IClienteRepository _clienteRepository = clienteRepository;
+        private readonly IValidator<Cliente> _validator = validator;
 
         /// <summary>
         /// Retorna uma lista de Clientes.
@@ -44,10 +36,7 @@ namespace XPTO.Presentation.API.Controllers.v1
         //[Produces("application/json")]
         [Produces(typeof(ClienteDTO))]
         [HttpGet(Name = "Listar Todos os clientes", Order = 1)]
-        public List<ClienteDTO> GetClientes()
-        {
-            return _clienteService.ObterTodosClientes().ToList();
-        }
+        public List<ClienteDTO> GetClientes() => [.. _clienteService.ObterTodosClientes()];
 
         [HttpGet("/{id:guid}", Name = "Obter um cliente por ID", Order = 2)]
         [Produces(typeof(ClienteDTO))]
@@ -100,9 +89,9 @@ namespace XPTO.Presentation.API.Controllers.v1
         }
 
         [HttpPut("/{id:guid}", Name = "Atualizar um cliente existente", Order = 4)]
-        [Consumes("application/json")]
-        [Produces(typeof(ClienteDTO))]
-        public ActionResult<Cliente> AtualizarCliente(Guid id, ClienteDTO dto)
+        //[Consumes("application/json")]
+        //[Produces(typeof(ClienteDTO))]
+        public ActionResult<ClienteDTO> AtualizarCliente(Guid id, ClienteDTO dto)
         {
             try
             {
@@ -110,9 +99,11 @@ namespace XPTO.Presentation.API.Controllers.v1
 
                 _clienteService.Atualizar(dto);
 
-                var clienteAtualizado = _clienteRepository.ObterPorId(id);
+                //var clienteAtualizado = _clienteRepository.ObterPorId(id);
 
-                return Ok(clienteAtualizado);
+                var cliente = _clienteService.ObterPorId(id);
+
+                return Ok(cliente);
             }
             catch (DomainExceptionValidation ex)
             {

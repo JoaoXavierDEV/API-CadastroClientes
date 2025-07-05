@@ -1,3 +1,4 @@
+using System.Text;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Domain.Tests
@@ -42,7 +43,6 @@ namespace XPTO.Domain.Tests
         }
 
         [Fact(DisplayName = "Cliente com Email Inválido")]
-        [Trait("Categoria", "Cliente Trait Testes")]
         public void CriarCliente_EmailInvalido()
         {
             // Arrange
@@ -70,7 +70,6 @@ namespace XPTO.Domain.Tests
         }
 
         [Fact(DisplayName = "Cliente com Telefone Inválido")]
-        [Trait("Categoria", "Cliente Trait Testes")]
         public void CriarCliente_TelefoneInvalido()
         {
             // Arrange
@@ -86,6 +85,49 @@ namespace XPTO.Domain.Tests
             Assert.False(result);
 
             Assert.NotEmpty(cliente.ValidationResult.Errors);
+        }
+
+        [Fact(DisplayName = "Inverter String usando For Decrescente")]
+        public void InverterString_ValidarResultado()
+        {
+            // Arrange
+            var original = "XPTO";
+
+            var esperado = "OTPX";
+            // Act
+            var resultado = new string(original.Reverse().ToArray());
+
+            var novaString = new StringBuilder();
+
+
+
+            for (int i = original.Length - 1; i >= 0; i--)
+            {
+                novaString.Append(original[i]);
+            }
+
+            esperado = novaString.ToString();
+
+            // Assert
+            Assert.Equal(esperado, resultado);
+        }
+
+        [Fact(DisplayName = "Inverter string recursivamente")]
+        public void InverterString_Recursivo()
+        {
+            static string InverterRecursivo(string s)
+            {
+                if (string.IsNullOrEmpty(s)) return s;
+                var novaString = s.Substring(1) + s[0];
+                return InverterRecursivo(s.Substring(1)) + s[0];
+            }
+
+            string original = "XPTO";
+            var esperado = "OTPX";
+
+            string resultado = InverterRecursivo(original);
+
+            Assert.Equal(esperado, resultado);
         }
 
 

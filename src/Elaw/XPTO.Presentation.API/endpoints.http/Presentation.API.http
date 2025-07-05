@@ -1,7 +1,8 @@
 @XPTO.Presentation.API_HostAddress = https://localhost:7274
 
+#region POST
 
-### POST COM ENDERECO
+#POST COM ENDERECO
 POST {{XPTO.Presentation.API_HostAddress}}/Clientes
 Content-Type: application/json
   {
@@ -19,9 +20,9 @@ Content-Type: application/json
     }
   }
 
-###
 
-### POST SEM ENDERECO
+
+#POST SEM ENDERECO
 POST {{XPTO.Presentation.API_HostAddress}}/Clientes
 Content-Type: application/json
 {
@@ -30,12 +31,9 @@ Content-Type: application/json
     "telefone": "string",
     "endereco": null
 }
-###
 
 
-DELETE {{XPTO.Presentation.API_HostAddress}}/ac0ff7b5-85fc-43fc-8e39-a7d5f5910582
-
-###
+#endregion
 
 
 ### Listar Todos os clientes

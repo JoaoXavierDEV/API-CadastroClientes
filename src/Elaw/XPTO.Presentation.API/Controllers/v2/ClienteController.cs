@@ -1,6 +1,6 @@
 ﻿using Asp.Versioning;
 using Microsoft.AspNetCore.Mvc;
-using XPTO.Application.DTOs;
+using XPTO.Application.DTO;
 
 namespace XPTO.Presentation.API.Controllers.v2
 {
@@ -19,7 +19,7 @@ namespace XPTO.Presentation.API.Controllers.v2
         [HttpGet(Name = "Listar Todos os clientes", Order = 1)]
         public List<ClienteDTO> GetClientes()
         {
-            return new List<ClienteDTO>() {
+            return [
                 new ClienteDTO
                 {
                     Id = Guid.NewGuid(),
@@ -28,7 +28,7 @@ namespace XPTO.Presentation.API.Controllers.v2
                     Telefone = "21980827649",
                     Endereco = null
                 }
-            };
+            ];
         }
     }
 }

@@ -43,7 +43,7 @@ namespace XPTO.Infrastructure.Data.Repositories
             }
         }
 
-        public async void Remover(Endereco endereco)
+        public new async void Remover(Endereco endereco)
         {
             DbSet.Remove(endereco);
 

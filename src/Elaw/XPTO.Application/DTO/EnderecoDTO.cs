@@ -1,9 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using XPTO.Domain.Entities;
 
-namespace XPTO.Application.DTOs;
+namespace XPTO.Application.DTO;
 public sealed record EnderecoDTO : IDataTransferObject
 {
+    public EnderecoDTO(string rua, string numero, string cidade, string estado, string cep)
+    {
+        Rua = rua;
+        Numero = numero;
+        Cidade = cidade;
+        Estado = estado;
+        Cep = cep;
+    }
+
+    public EnderecoDTO()
+    {
+        
+    }
+
     [Key]
     public Guid Id { get; set; } = Guid.NewGuid();
     [Required]

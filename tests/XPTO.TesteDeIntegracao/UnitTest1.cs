@@ -1,9 +1,9 @@
 using System.Diagnostics;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc.Testing;
-using XPTO.Application.DTOs;
+using XPTO.Application.DTO;
 
-namespace XPTO.TesteDeIntegracao.Tests;
+namespace XPTO.TesteDeIntegracao;
 
 
 public class ClienteControllerTests

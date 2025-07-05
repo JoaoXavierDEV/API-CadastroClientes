@@ -138,7 +138,7 @@ namespace XPTO.Presentation.API.Configuration
         public async Task Invoke(HttpContext context)
         {
             if (context.Request.Path.StartsWithSegments("/swagger")
-                && !context.User.Identity.IsAuthenticated)
+                && context.User.Identity != null && !context.User.Identity.IsAuthenticated)
             {
                 context.Response.StatusCode = StatusCodes.Status401Unauthorized;
 

@@ -1,4 +1,4 @@
-﻿using XPTO.Application.DTOs;
+﻿using XPTO.Application.DTO;
 using XPTO.Application.Interfaces;
 
 namespace XPTO.Application.Services

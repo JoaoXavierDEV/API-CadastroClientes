@@ -1,4 +1,4 @@
-﻿using XPTO.Application.DTOs;
+﻿using XPTO.Application.DTO;
 
 namespace XPTO.Application.Interfaces
 {

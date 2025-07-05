@@ -1,19 +1,39 @@
 using System.ComponentModel.DataAnnotations;
 using XPTO.Domain.Entities;
 
-namespace XPTO.Application.DTOs
+namespace XPTO.Application.DTO
 {
-    //[JsonSerializable(typeof(ClienteDTO))]
-    public class ClienteDTO : IDataTransferObject
+    public sealed record ClienteDTO : IDataTransferObject
     {
         [Key]
-        public new Guid Id { get; set; } = Guid.Empty;
+        public Guid Id { get; set; } = Guid.Empty;
         [Required]
         public string Nome { get; set; } = string.Empty;
-        [Required]
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Campo Email é obrigatório.")]
         public string Email { get; set; } = string.Empty;
         [Required]
         public string Telefone { get; set; } = string.Empty;
         public EnderecoDTO? Endereco { get; set; } = new EnderecoDTO();
+
+        public ClienteDTO()
+        {
+            
+        }
+
+        public ClienteDTO(string nome, string email, string telefone)
+        {
+            Nome = nome;
+            Email = email;
+            Telefone = telefone;
+        }
+
+        public ClienteDTO(string nome, string email, string telefone, EnderecoDTO? endereco)
+        {
+            Nome = nome;
+            Email = email;
+            Telefone = telefone;
+            Endereco = endereco;
+        }
     }
 }

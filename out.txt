@@ -1,0 +1,45 @@
+C:\Projetos\elaw
+├── sql
+├── src
+|  └── Elaw
+|     ├── XPTO.Application
+|     |  ├── bin
+|     |  ├── DTO
+|     |  ├── Interfaces
+|     |  ├── Mappings
+|     |  ├── obj
+|     |  └── Services
+|     ├── XPTO.Domain
+|     |  ├── bin
+|     |  ├── Entities
+|     |  ├── Exceptions
+|     |  ├── Interfaces
+|     |  ├── obj
+|     |  └── Validation
+|     ├── XPTO.Infrastructure
+|     |  ├── bin
+|     |  ├── Data
+|     |  └── obj
+|     └── XPTO.Presentation.API
+|        ├── bin
+|        ├── Configuration
+|        ├── Controllers
+|        ├── obj
+|        └── Properties
+└── tests
+   ├── Postman
+   ├── XPTO.Domain.Tests
+   |  ├── bin
+   |  |  └── Debug
+   |  ├── NovaPasta
+   |  └── obj
+   |     └── Debug
+   └── XPTO.TesteDeIntegracao
+      ├── bin
+      |  └── Debug
+      ├── obj
+      |  └── Debug
+      └── Properties
+
+directory: 41
+

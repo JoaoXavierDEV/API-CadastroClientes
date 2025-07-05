@@ -5,7 +5,7 @@ namespace XPTO.Domain.Entities
 {
     public interface IDataTransferObject
     {
-        abstract Guid Id { get; set; }
+        Guid Id { get; set; }
     }
     public interface IEntityBase
     {
@@ -18,7 +18,7 @@ namespace XPTO.Domain.Entities
 
         [NotMapped]
         [System.Text.Json.Serialization.JsonIgnore]
-        public ValidationResult ValidationResult { get; protected set; }
+        public ValidationResult ValidationResult { get; protected set; } = new ValidationResult();
 
         protected EntityBase()
         {

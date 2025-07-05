@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using XPTO.Application.DTOs;
+using XPTO.Application.DTO;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Application.Mappings;

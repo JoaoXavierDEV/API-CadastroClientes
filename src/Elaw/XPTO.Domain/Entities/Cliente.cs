@@ -34,7 +34,7 @@ namespace XPTO.Domain.Entities
             return ValidationResult.IsValid;
         }
 
-        public bool hasEndereco() => Endereco is not null;
+        public bool PossuiEndereco() => Endereco is not null;
 
         public void SetEndereco(Endereco endereco)
         {

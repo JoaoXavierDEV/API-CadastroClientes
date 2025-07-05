@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using FluentValidation;
-using XPTO.Application.DTOs;
+using XPTO.Application.DTO;
 using XPTO.Application.Interfaces;
 using XPTO.Domain.Entities;
 using XPTO.Domain.Exceptions;
@@ -8,22 +8,13 @@ using XPTO.Domain.Interfaces;
 
 namespace XPTO.Application.Services
 {
-    public class ClienteService : IClienteService
+    public class ClienteService(IClienteRepository clienteRepository, IMapper mapper, IValidator<Cliente> validator, IEnderecoRepository enderecoRepository, IValidator<Endereco> enderecoValidator) : IClienteService
     {
-        private readonly IClienteRepository _clienteRepository;
-        private readonly IEnderecoRepository _enderecoRepository;
-        private readonly IMapper _mapper;
-        private readonly IValidator<Cliente> _clienteValidator;
-        private readonly IValidator<Endereco> _enderecoValidator;
-
-        public ClienteService(IClienteRepository clienteRepository, IMapper mapper, IValidator<Cliente> validator, IEnderecoRepository enderecoRepository, IValidator<Endereco> enderecoValidator)
-        {
-            _clienteRepository = clienteRepository;
-            _mapper = mapper;
-            _clienteValidator = validator;
-            _enderecoRepository = enderecoRepository;
-            _enderecoValidator = enderecoValidator;
-        }
+        private readonly IClienteRepository _clienteRepository = clienteRepository;
+        private readonly IEnderecoRepository _enderecoRepository = enderecoRepository;
+        private readonly IMapper _mapper = mapper;
+        private readonly IValidator<Cliente> _clienteValidator = validator;
+        private readonly IValidator<Endereco> _enderecoValidator = enderecoValidator;
 
         public void Adicionar(ClienteDTO clienteDto)
         {
@@ -54,12 +45,7 @@ namespace XPTO.Application.Services
 
         public ClienteDTO ObterPorId(Guid id)
         {
-            var cliente = _clienteRepository.ObterPorId(id);
-
-            if (cliente == null)
-            {
-                throw new Exception("Cliente não encontrado.");
-            }
+            var cliente = _clienteRepository.ObterPorId(id) ?? throw new Exception("Cliente não encontrado.");
 
             var clienteDto = _mapper.Map<ClienteDTO>(cliente);
 
@@ -75,12 +61,9 @@ namespace XPTO.Application.Services
         public void Deletar(Guid id)
         {
             //var cliente = _clienteRepository.ObterPorId(id);
-            var cliente = _clienteRepository.Consultar<Cliente>().FirstOrDefault(x => x.Id == id);
+            var cliente = _clienteRepository.Consultar<Cliente>().FirstOrDefault(x => x.Id == id)
+                ?? throw new KeyNotFoundException("Cliente não encontrado.");
 
-            if (cliente is null)
-            {
-                throw new KeyNotFoundException("Cliente não encontrado.");
-            }
 
             if (cliente.Endereco is not null)
             {
@@ -96,10 +79,7 @@ namespace XPTO.Application.Services
         {
             try
             {
-                var cliente = _clienteRepository.ObterPorId(dto.Id);
-
-                if (cliente is null)
-                    throw new Exception("Cliente não encontrado");
+                var cliente = _clienteRepository.ObterPorId(dto.Id) ?? throw new Exception("Cliente não encontrado");
 
                 var clienteValidade = _clienteValidator.Validate(_mapper.Map<Cliente>(dto));
 
