@@ -19,6 +19,16 @@ namespace XPTO.Domain.Entities
             Endereco = null;
         }
 
+        public Cliente(Cliente other)
+        {
+            if (other == null) throw new ArgumentNullException(nameof(other));
+            Id = other.Id;
+            Nome = other.Nome;
+            Email = other.Email;
+            Telefone = other.Telefone;
+            Endereco = other.Endereco != null ? new Endereco(other.Endereco) : null;
+        }
+
         public Cliente(string nome, string email, string telefone, Endereco? endereco = null)
         {
             Nome = nome;

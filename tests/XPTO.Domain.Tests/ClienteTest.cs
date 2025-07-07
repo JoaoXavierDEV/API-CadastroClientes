@@ -3,6 +3,8 @@ using XPTO.Domain.Entities;
 
 namespace XPTO.Domain.Tests
 {
+    [CollectionDefinition("DomainCollection")]
+    [Collection("DomainCollection")]
     public class ClienteTest
     {
         [Fact(DisplayName = "Cliente Válido")]
@@ -24,7 +26,6 @@ namespace XPTO.Domain.Tests
         }
 
         [Fact(DisplayName = "Cliente com Nome Inválido")]
-        [Trait("Categoria", "Cliente Trait Testes")]
         public void CriarCliente_NomeInvalido()
         {
             // Arrange

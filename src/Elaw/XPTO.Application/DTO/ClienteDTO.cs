@@ -14,11 +14,11 @@ namespace XPTO.Application.DTO
         public string Email { get; set; } = string.Empty;
         [Required]
         public string Telefone { get; set; } = string.Empty;
-        public EnderecoDTO? Endereco { get; set; } = new EnderecoDTO();
+        public EnderecoDTO? Endereco { get; set; }
 
         public ClienteDTO()
         {
-            
+
         }
 
         public ClienteDTO(string nome, string email, string telefone)

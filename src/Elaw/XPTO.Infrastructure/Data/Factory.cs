@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using XPTO.Domain.Entities;
 using XPTO.Infrastructure.Data.Context;
 
 namespace XPTO.Infrastructure.Data;
@@ -25,17 +26,20 @@ public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<Applicati
         optionsBuilder
             .UseInMemoryDatabase("xpto-database")
             .EnableSensitiveDataLogging()
-            .LogTo(Console.WriteLine, LogLevel.Error);
-        //.UseSeeding((x, _) =>
-        //{
-        //    //bool hasData = x.Set<Cliente>().Any() || x.Set<Endereco>().Any();
+            .LogTo(Console.WriteLine, LogLevel.Error)
 
-        //    //if (!hasData)
-        //    //{
-        //    //    x.Set<Cliente>().AddRange(DbInitializer.Clientes);
-        //    //    x.SaveChanges();
-        //    //}
-        //});
+        ////habilitado para testes
+        .UseSeeding((x, _) =>
+        {
+            bool hasData = x.Set<Cliente>().Any() || x.Set<Endereco>().Any();
+
+            if (!hasData)
+            {
+                //x.Set<Cliente>().AddRange(DbInitializer.Clientes);
+                x.Set<Cliente>().AddRange(DbInitializer.DadosClientes());
+                x.SaveChanges();
+            }
+        });
 
         return new ApplicationDbContext(optionsBuilder.Options);
     }

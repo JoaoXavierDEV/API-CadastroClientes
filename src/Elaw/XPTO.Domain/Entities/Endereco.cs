@@ -29,6 +29,17 @@ namespace XPTO.Domain.Entities
             Cep = string.Empty;
         }
 
+        public Endereco(Endereco other)
+        {
+            if (other == null) throw new ArgumentNullException(nameof(other));
+            Id = other.Id;
+            Rua = other.Rua;
+            Numero = other.Numero;
+            Cidade = other.Cidade;
+            Estado = other.Estado;
+            Cep = other.Cep;
+        }
+
         public override bool EhValido()
         {
             ValidationResult = new EnderecoValidator().Validate(this);
