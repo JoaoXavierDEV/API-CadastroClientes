@@ -1,5 +1,9 @@
 ﻿## Teste Técnico – Web API com .NET Core, EF In-Memory e DDD
 
+[![build and test](https://github.com/JoaoXavierDEV/API-CadastroClientes/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JoaoXavierDEV/API-CadastroClientes/actions/workflows/dotnet.yml)
+[![build and test](https://github.com/JoaoXavierDEV/API-CadastroClientes/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JoaoXavierDEV/API-CadastroClientes/actions/workflows/dotnet.yml)
+[![build and test](https://github.com/JoaoXavierDEV/API-CadastroClientes/actions/workflows/dotnet.yml/badge.svg)](https://github.com/JoaoXavierDEV/API-CadastroClientes/actions/workflows/dotnet.yml)
+
 ## 🧩 Descrição do projeto
 
 É uma Web API em ASP.NET Core para gerenciar um cadastro de clientes e seus respectivos endereços, estruturada conforme princípios do Domain-Driven Design (DDD) e utilizando Entity Framework Core com banco de dados em memória.
