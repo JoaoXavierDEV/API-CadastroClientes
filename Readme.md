@@ -1,4 +1,4 @@
-﻿# Teste Técnico – Web API com .NET Core, EF In-Memory e DDD
+﻿## Teste Técnico – Web API com .NET Core, EF In-Memory e DDD
 
 ## 🧩 Descrição do projeto
 
@@ -20,7 +20,7 @@ A API expõe os seguintes endpoints:
 
 ## 🧱 Requisitos Técnicos
 
-- ASP.NET Core Web API (**.NET 8 ou superior**)
+- ASP.NET Core Web API (**.NET 8**)
 - **Entity Framework Core** (In-Memory Database)
 - Estrutura DDD com separação em:
   - **Domain** (Entidades, Value Objects, Interfaces de Repositório)
@@ -39,8 +39,8 @@ A API expõe os seguintes endpoints:
 
 1. **Clone o repositório:**
    ```bash
-   git clone https://github.com/JoaoXavierDEV/Elaw.git
-   cd src/Elaw
+   git clone https://github.com/JoaoXavierDEV/API-CadastroClientes.git
+   cd src/API-CadastroClientes
    ```
 
 2. **Restaure as dependências:**
@@ -71,12 +71,12 @@ A API expõe os seguintes endpoints:
 
 ```
 src/
-  Elaw.Domain/         # Entidades, Value Objects, Interfaces de Repositório
-  Elaw.Application/    # Serviços de aplicação, DTOs
-  Elaw.Infrastructure/ # Repositórios, contexto EF
-  Elaw.API/            # Controllers, configuração de API
+  XPTO.Domain/         # Entidades, Value Objects, Interfaces de Repositório
+  XPTO.Application/    # Serviços de aplicação, DTOs
+  XPTO.Infrastructure/ # Repositórios, contexto EF
+  XPTO.API/            # Controllers, configuração de API
 tests/
-  Elaw.Tests/          # Testes unitários
+  XPTO.Tests/          # Testes unitários
 ```
 
 ---
