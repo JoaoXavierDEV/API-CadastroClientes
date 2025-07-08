@@ -10,6 +10,8 @@ on:
 
 env:
   DOTNET_VERSION: '8.0.411' # The .NET SDK version to use
+  DOTNET_CLI_UI_LANGUAGE: "pt-BR"
+  LANG: "pt_BR.UTF-8"
 
 jobs:
   build-and-test:
@@ -35,3 +37,4 @@ jobs:
     
     - name: Test
       run: dotnet test --no-restore --verbosity normal
+

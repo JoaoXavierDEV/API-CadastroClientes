@@ -1,4 +1,4 @@
-using System.Data.Entity;
+Ôªøusing System.Data.Entity;
 using AutoMapper;
 using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
@@ -95,7 +95,7 @@ namespace XPTO.Domain.Tests
             Assert.NotNull(clienteDetails.Nome);
         }
 
-        [Fact(DisplayName = "ObtÍm uma lista de clientes")]
+        [Fact(DisplayName = "Obt√™m uma lista de clientes")]
         [Trait("Cliente", "Get")]
         public void GetClientes_DeveRetornarListaDeClientes()
         {
@@ -107,7 +107,7 @@ namespace XPTO.Domain.Tests
 
             var clientesEsperados = new List<ClienteDTO>
             {
-                new ClienteDTO { Id = Guid.NewGuid(), Nome = "Jo„o", Email = "joao@teste.com", Telefone = "123456" },
+                new ClienteDTO { Id = Guid.NewGuid(), Nome = "Jo√£o", Email = "joao@teste.com", Telefone = "123456" },
                 new ClienteDTO { Id = Guid.NewGuid(), Nome = "Maria", Email = "maria@teste.com", Telefone = "654321" }
             };
 
@@ -131,7 +131,7 @@ namespace XPTO.Domain.Tests
             // Assert
             Assert.NotNull(resultado);
             Assert.Equal(2, resultado.Count);
-            Assert.Equal("Jo„o", resultado[0].Nome);
+            Assert.Equal("Jo√£o", resultado[0].Nome);
             Assert.Equal("Maria", resultado[1].Nome);
 
             Assert.NotEmpty(resultado2);
@@ -143,7 +143,7 @@ namespace XPTO.Domain.Tests
 
         #region Post
 
-        [Fact(DisplayName = "Adicionar Cliente com EndereÁo")]
+        [Fact(DisplayName = "Adicionar Cliente com Endere√ßo")]
         [Trait("Cliente", "Post")]
         public async Task AdicionarClienteComEndereco_DeveRetornarOk()
         {
@@ -170,7 +170,7 @@ namespace XPTO.Domain.Tests
             var clienteRepo = _clienteRepository.Consultar<Cliente>().FirstOrDefault(x => x.Id == clienteDto.Id);
 
             if (clienteRepo is null)
-                _outputHelper.WriteLine("Cliente adicionado n„o foi encontrado na base apÛs ObterPorId");
+                _outputHelper.WriteLine("Cliente adicionado n√£o foi encontrado na base ap√≥s ObterPorId");
 
 
             var clienteDtoRepo = _mapper.Map<ClienteDTO>(clienteRepo);
@@ -178,20 +178,20 @@ namespace XPTO.Domain.Tests
             Assert.Equal(clienteDto, clienteDtoRepo);
         }
 
-        [Fact(DisplayName = "Adicionar Cliente com email j· Cadastrado")]
+        [Fact(DisplayName = "Adicionar Cliente com email j√° Cadastrado")]
         [Trait("Cliente", "Post")]
         public async Task ObterClientePorID_DeveRetornarError_QuandoClienteExistir()
         {
             // Arrange
-            //var clienteDto = new ClienteDTO("JosÈ Xavier", "jose@gmail.com", "2178985231",
-            //        new EnderecoDTO("Rua Prefeito Jose", "1024", "Nova IguaÁu", "RJ", "20258-987") { Id = Guid.Parse("962AE9D1-A200-4FBF-81AA-72837C092B67") })
+            //var clienteDto = new ClienteDTO("Jos√© Xavier", "jose@gmail.com", "2178985231",
+            //        new EnderecoDTO("Rua Prefeito Jose", "1024", "Nova Igua√ßu", "RJ", "20258-987") { Id = Guid.Parse("962AE9D1-A200-4FBF-81AA-72837C092B67") })
             //{
             //    Id = Guid.Parse("ac0ff7b5-85fc-43fc-8e39-a7d5f5910582")
             //};
 
             var endereco = new EnderecoDTO("Rua D", "1024", "Cidade", "RJ", "20258-987") { Id = Guid.Parse("962AE9D1-A200-4FBF-81AA-72837C092B67") };
 
-            var clienteDto = new ClienteDTO("Jo„o", "joao@outlook.com", "21 97898 5231", endereco)
+            var clienteDto = new ClienteDTO("Jo√£o", "joao@outlook.com", "21 97898 5231", endereco)
             {
                 Id = Guid.Parse("ac0ff7b5-85fc-43fc-8e39-a7d5f5910582")
             };
@@ -201,7 +201,7 @@ namespace XPTO.Domain.Tests
 
             var resultadoDuplicado = await _controller.CriarCliente(clienteDto);
 
-            // chamada direto na service lanÁa exception do tipo DomainExceptionValidation
+            // chamada direto na service lan√ßa exception do tipo DomainExceptionValidation
             await Assert.ThrowsAsync<DomainExceptionValidation>(() => _clienteService.Adicionar(clienteDto));
 
             //  esperado que o resultado seja BadRequestObjectResult
@@ -215,18 +215,18 @@ namespace XPTO.Domain.Tests
             Assert.Contains("Email", clienteDetails.Errors.Keys);
 
             Assert.Collection(clienteDetails.Errors["Email"],
-                Value => Assert.Equal("J· existe um cliente com este email.", Value));
+                Value => Assert.Equal("J√° existe um cliente com este email.", Value));
 
-            Assert.Single(clienteDetails.Errors["Email"], "J· existe um cliente com este email.");
+            Assert.Single(clienteDetails.Errors["Email"], "J√° existe um cliente com este email.");
         }
 
-        [Fact(DisplayName = "Adicionar Cliente sem endereÁo")]
+        [Fact(DisplayName = "Adicionar Cliente sem endere√ßo")]
         [Trait("Cliente", "Post")]
         public async Task AdicionarClienteSemEndereco_DeveRetornar()
         {
             // Arrange
 
-            var clienteDto = new ClienteDTO("JosÈ Xavier", "jose@gmail.com", "2178985231")
+            var clienteDto = new ClienteDTO("Jos√© Xavier", "jose@gmail.com", "2178985231")
             {
                 Id = Guid.NewGuid()
             };
@@ -245,7 +245,7 @@ namespace XPTO.Domain.Tests
 
             // consultar nao funciona
             // trocar in memory por sqlite
-            // ver implementaÁ„o de teste repository
+            // ver implementa√ß√£o de teste repository
 
             //var clienteRepo = _clienteRepository.ObterPorId(clienteDto.Id);
             var retornocliente = _controller.ObterClientePorID(clienteDto.Id);
@@ -261,7 +261,7 @@ namespace XPTO.Domain.Tests
             Assert.Equal(clienteDto, clienteRepo);
         }
 
-        [Fact(DisplayName = "Adicionar Cliente Inv·lido")]
+        [Fact(DisplayName = "Adicionar Cliente Inv√°lido")]
         [Trait("Cliente", "Post")]
         public async Task AdicionarClienteInvalido_DeveRetornarBadRequest()
         {
@@ -283,11 +283,11 @@ namespace XPTO.Domain.Tests
             var clienteDetails = Assert.IsType<ValidationProblemDetails>(cliente.Value);
             Assert.NotEmpty(clienteDetails.Errors);
             Assert.Contains("Email", clienteDetails.Errors.Keys);
-            Assert.Contains("O email deve ser um endereÁo de email v·lido.", clienteDetails.Errors["Email"]);
+            Assert.Contains("O email deve ser um endere√ßo de email v√°lido.", clienteDetails.Errors["Email"]);
             Assert.Equal(3, clienteDetails.Errors["Email"].Length);
             Assert.Collection(clienteDetails.Errors["Email"],
-                Value => Assert.Equal("O email È obrigatÛrio.", Value),
-                Value => Assert.Equal("O email deve ser um endereÁo de email v·lido.", Value),
+                Value => Assert.Equal("O email √© obrigat√≥rio.", Value),
+                Value => Assert.Equal("O email deve ser um endere√ßo de email v√°lido.", Value),
                 Value => Assert.Equal("O email deve ter entre 1 e 50 caracteres.", Value)
                 );
         }
@@ -296,7 +296,7 @@ namespace XPTO.Domain.Tests
 
         #region Delete
 
-        [Fact(DisplayName = "Deletar Cliente com endereÁo")]
+        [Fact(DisplayName = "Deletar Cliente com endere√ßo")]
         [Trait("Cliente", "Delete")]
         public void DeletarClienteComEndereco_DeveRetornarOK()
         {
@@ -320,7 +320,7 @@ namespace XPTO.Domain.Tests
             _outputHelper.WriteLine($"Cliente removido com sucesso.");
         }
 
-        [Fact(DisplayName = "Deletar Cliente sem endereÁo")]
+        [Fact(DisplayName = "Deletar Cliente sem endere√ßo")]
         [Trait("Cliente", "Delete")]
         public void DeletarCliente_DeveRetornarOK()
         {
@@ -344,18 +344,18 @@ namespace XPTO.Domain.Tests
             _outputHelper.WriteLine($"Cliente removido com sucesso.");
         }
 
-        [Fact(DisplayName = "Deletar Cliente Inv·lido")]
+        [Fact(DisplayName = "Deletar Cliente Inv√°lido")]
         [Trait("Cliente", "Delete")]
         public void DeletarCliente_DeveRetornarErro()
         {
             // Arrange
-            var clienteId = Guid.NewGuid(); // ID de um cliente que n„o existe
+            var clienteId = Guid.NewGuid(); // ID de um cliente que n√£o existe
             // Act
             var resultado = _controller.DeletarCliente(clienteId);
             // Assert
             var cliente = Assert.IsType<NotFoundObjectResult>(resultado);
 
-            Assert.Equal("Erro ao remover cliente: Cliente n„o encontrado.", cliente.Value);
+            Assert.Equal("Erro ao remover cliente: Cliente n√£o encontrado.", cliente.Value);
         }
 
         #endregion
@@ -367,21 +367,21 @@ namespace XPTO.Domain.Tests
         public void AtualizarCliente_DeveRetornarOK()
         {
             var endereco = new EnderecoDTO("Avenida ", "999", "Volta Redonda", "RJ", "20300-000") { Id = Guid.Parse("DB5CCC51-C595-43FE-A81C-50CCABEB0253") };
-            var cliente = new ClienteDTO("Jo„o Fernando Xavier", "joao@outlook.com", "21 97898 0000", endereco)
+            var cliente = new ClienteDTO("Jo√£o Fernando Xavier", "joao@outlook.com", "21 97898 0000", endereco)
             {
                 Id = Guid.Parse("ac0ff7b5-85fc-43fc-8e39-a7d5f5910582")
             };
 
-            // O EF sÛ armazena o valor original se o objeto est· sendo rastreado (sem AsNoTracking()),
-            // mas mesmo assim, apÛs o SaveChanges, o valor original È atualizado para o novo valor. 
+            // O EF s√≥ armazena o valor original se o objeto est√° sendo rastreado (sem AsNoTracking()),
+            // mas mesmo assim, ap√≥s o SaveChanges, o valor original √© atualizado para o novo valor. 
 
-            // CÛpia por Construtor
+            // C√≥pia por Construtor
             Cliente clienteAtualCopia = new Cliente(_clienteRepository.Consultar()
-                    .AsNoTracking() // n„o rastreia as alteraÁıes, apÛs SaveChanges, o valor original È atualizado 
-                                    // n„o mantÈm o estado original
+                    .AsNoTracking() // n√£o rastreia as altera√ß√µes, ap√≥s SaveChanges, o valor original √© atualizado 
+                                    // n√£o mant√©m o estado original
                     .First(x => x.Id == cliente.Id));
 
-            // CÛpia por Reflection
+            // C√≥pia por Reflection
             Cliente clienteAtualCopia2 = _clienteRepository.Consultar()
                     .AsNoTracking()
                     .First(x => x.Id == cliente.Id).Copiar<Cliente>();
@@ -410,21 +410,21 @@ namespace XPTO.Domain.Tests
             Assert.NotEqual(clienteAtualCopia2.Endereco, clienteAtualizado.Endereco);
         }
 
-        [Fact(DisplayName = "Atualizar Cliente remover endereÁo")]
+        [Fact(DisplayName = "Atualizar Cliente remover endere√ßo")]
         [Trait("Cliente", "Put")]
         public void AtualizarClienteParaRemoverEndereco_DeveRetornarOK()
         {
-            var cliente = new ClienteDTO("Jo„o Fernando Xavier", "joao@outlook.com", "21 97898 0000")
+            var cliente = new ClienteDTO("Jo√£o Fernando Xavier", "joao@outlook.com", "21 97898 0000")
             {
                 Id = Guid.Parse("ac0ff7b5-85fc-43fc-8e39-a7d5f5910582")
             };
 
-            // O EF sÛ armazena o valor original se o objeto est· sendo rastreado (sem AsNoTracking()),
-            // mas mesmo assim, apÛs o SaveChanges, o valor original È atualizado para o novo valor. 
+            // O EF s√≥ armazena o valor original se o objeto est√° sendo rastreado (sem AsNoTracking()),
+            // mas mesmo assim, ap√≥s o SaveChanges, o valor original √© atualizado para o novo valor. 
 
             Cliente clienteAtualCopia = new Cliente(_clienteRepository.Consultar()
-                    .AsNoTracking() // n„o rastreia as alteraÁıes, apÛs SaveChanges, o valor original È atualizado 
-                                    // n„o mantÈm o estado original
+                    .AsNoTracking() // n√£o rastreia as altera√ß√µes, ap√≥s SaveChanges, o valor original √© atualizado 
+                                    // n√£o mant√©m o estado original
                     .First(x => x.Id == cliente.Id));
 
             Cliente clienteAtualCopia2 = _clienteRepository.Consultar()
@@ -491,7 +491,7 @@ namespace XPTO.Domain.Tests
         //    //    mockLogger.Object,
         //    //    mockService,
         //    //    repositoryCliente,
-        //    //    _validatorCliente // Supondo que vocÍ tenha um validador de cliente implementado
+        //    //    _validatorCliente // Supondo que voc√™ tenha um validador de cliente implementado
         //    //);
 
 
@@ -509,20 +509,20 @@ namespace XPTO.Domain.Tests
         //    Assert.NotEmpty(clienteDetails.Errors);
 
         //    Assert.Contains("Email", clienteDetails.Errors.Keys);
-        //    Assert.Contains("O email deve ser um endereÁo de email v·lido.", clienteDetails.Errors["Email"]);
+        //    Assert.Contains("O email deve ser um endere√ßo de email v√°lido.", clienteDetails.Errors["Email"]);
 
 
         //    Assert.Equal(3, clienteDetails.Errors["Email"].Length);
 
         //    // Assert.Collection = Todos os itens abaixo devem passar
         //    //Assert.Collection(cliente.ValidationResult.Errors,
-        //    //    x => Assert.Equal("O email È obrigatÛrio.", x.ErrorMessage),
-        //    //    x => Assert.Equal("O email deve ser um endereÁo de email v·lido.", x.ErrorMessage),
+        //    //    x => Assert.Equal("O email √© obrigat√≥rio.", x.ErrorMessage),
+        //    //    x => Assert.Equal("O email deve ser um endere√ßo de email v√°lido.", x.ErrorMessage),
         //    //    x => Assert.Equal("O email deve ter entre 1 e 50 caracteres.", x.ErrorMessage));
 
         //    Assert.Collection(clienteDetails.Errors["Email"],
-        //        Value => Assert.Equal("O email È obrigatÛrio.", Value),
-        //        Value => Assert.Equal("O email deve ser um endereÁo de email v·lido.", Value),
+        //        Value => Assert.Equal("O email √© obrigat√≥rio.", Value),
+        //        Value => Assert.Equal("O email deve ser um endere√ßo de email v√°lido.", Value),
         //        Value => Assert.Equal("O email deve ter entre 1 e 50 caracteres.", Value)
         //        );
 
