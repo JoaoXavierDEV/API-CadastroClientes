@@ -1,4 +1,4 @@
-using System.Text;
+Ôªøusing System.Text;
 using XPTO.Domain.Entities;
 
 namespace XPTO.Domain.Tests
@@ -7,12 +7,12 @@ namespace XPTO.Domain.Tests
     [Collection("DomainCollection")]
     public class ClienteTest
     {
-        [Fact(DisplayName = "Cliente V·lido")]
+        [Fact(DisplayName = "Cliente V√°lido")]
         public void CriarCliente_ComPropriedadesValidas()
         {
             // Arrange 
             var cliente = new Cliente(
-                "Jo„o Fernando",
+                "Jo√£o Fernando",
                 "joao@outlook.com",
                 "21 9-9999-9999");
 
@@ -25,7 +25,7 @@ namespace XPTO.Domain.Tests
             Assert.Empty(cliente.ValidationResult.Errors);
         }
 
-        [Fact(DisplayName = "Cliente com Nome Inv·lido")]
+        [Fact(DisplayName = "Cliente com Nome Inv√°lido")]
         public void CriarCliente_NomeInvalido()
         {
             // Arrange
@@ -43,12 +43,12 @@ namespace XPTO.Domain.Tests
             Assert.NotEmpty(cliente.ValidationResult.Errors);
         }
 
-        [Fact(DisplayName = "Cliente com Email Inv·lido")]
+        [Fact(DisplayName = "Cliente com Email Inv√°lido")]
         public void CriarCliente_EmailInvalido()
         {
             // Arrange
             var cliente = new Cliente(
-                "Jo„o Fernando",
+                "Jo√£o Fernando",
                 string.Empty,
                 "21 9-9999-9999");
 
@@ -64,18 +64,18 @@ namespace XPTO.Domain.Tests
 
             // Todos os testes abaixo devem passar
             Assert.Collection(cliente.ValidationResult.Errors,
-                x => Assert.Equal("O email È obrigatÛrio.", x.ErrorMessage),
-                x => Assert.Equal("O email deve ser um endereÁo de email v·lido.", x.ErrorMessage),
+                x => Assert.Equal("O email √© obrigat√≥rio.", x.ErrorMessage),
+                x => Assert.Equal("O email deve ser um endere√ßo de email v√°lido.", x.ErrorMessage),
                 x => Assert.Equal("O email deve ter entre 1 e 50 caracteres.", x.ErrorMessage));
 
         }
 
-        [Fact(DisplayName = "Cliente com Telefone Inv·lido")]
+        [Fact(DisplayName = "Cliente com Telefone Inv√°lido")]
         public void CriarCliente_TelefoneInvalido()
         {
             // Arrange
             var cliente = new Cliente(
-                "Jo„o Fernando",
+                "Jo√£o Fernando",
                 "joao@outlook",
                 "");
 
