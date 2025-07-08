@@ -13,6 +13,7 @@ using XPTO.Domain.Exceptions;
 using XPTO.Domain.Interfaces;
 using XPTO.Domain.Validation;
 using XPTO.Infrastructure.Data;
+using XPTO.Infrastructure.Data.Context;
 using XPTO.Infrastructure.Data.Repositories;
 using XPTO.Presentation.API.Controllers.v1;
 using Xunit.Abstractions;
@@ -26,9 +27,10 @@ namespace XPTO.Domain.Tests
         private readonly Mapper _mapper;
         private readonly ILogger _logger;
         private readonly IClienteService _clienteService;
-        private readonly IClienteRepository _clienteRepository;
+        private IClienteRepository _clienteRepository;
         private readonly IValidator<Cliente> _validatorCliente = new ClienteValidator();
         private readonly IValidator<Endereco> _validatorEndereco = new EnderecoValidator();
+        private ApplicationDbContext _applicationDbContextFactory = new ApplicationDbContextFactory().CreateDbContext();
 
         private readonly ClienteController _controller;
 
@@ -47,7 +49,7 @@ namespace XPTO.Domain.Tests
                 .Create(builder =>
                 {
                     // builder.ClearProviders();
-                    builder.AddConsole();
+                    // builder.AddConsole();
                     builder.AddDebug();
                     builder.SetMinimumLevel(LogLevel.Debug);
                 })
@@ -55,8 +57,12 @@ namespace XPTO.Domain.Tests
 
             _logger = logger;
 
-            var repositoryCliente = new ClienteRepository(new ApplicationDbContextFactory().CreateDbContext());
-            var repositoryEndereco = new EnderecoRepository(new ApplicationDbContextFactory().CreateDbContext());
+            var appdbcontext = new ApplicationDbContextFactory().CreateDbContext();
+
+            var repositoryCliente = new ClienteRepository(_applicationDbContextFactory);
+
+            var repositoryEndereco = new EnderecoRepository(_applicationDbContextFactory);
+
             _clienteService = new ClienteService(repositoryCliente, _mapper, _validatorCliente, repositoryEndereco, _validatorEndereco);
             _clienteRepository = repositoryCliente;
 
@@ -129,6 +135,8 @@ namespace XPTO.Domain.Tests
             Assert.Equal("Maria", resultado[1].Nome);
 
             Assert.NotEmpty(resultado2);
+
+            _outputHelper.WriteLine($"Total de clientes retornados: {resultado2.Count}");
         }
 
         #endregion
@@ -137,18 +145,18 @@ namespace XPTO.Domain.Tests
 
         [Fact(DisplayName = "Adicionar Cliente com Endereço")]
         [Trait("Cliente", "Post")]
-        public void AdicionarClienteComEndereco_DeveRetornarOk()
+        public async Task AdicionarClienteComEndereco_DeveRetornarOk()
         {
             // Arrange
-            var clienteDto = new ClienteDTO("José Xavier", "jose@gmail.com", "2178985231",
-                    new EnderecoDTO("Rua Prefeito Jose", "1024", "Nova Iguaçu", "RJ", "20258-987") { Id = Guid.Parse("962AE9D1-A200-4FBF-81AA-72837C092B67") })
+            var clienteDto = new ClienteDTO("Rennan ", "rennan@gmail.com", "2178985231",
+                    new EnderecoDTO("Rua Z Index", "80", "Anchieta", "RJ", "20333-888") { Id = Guid.NewGuid() })
             {
-                Id = Guid.Parse("ac0ff7b5-85fc-43fc-8e39-a7d5f5910582")
+                Id = Guid.NewGuid()
             };
 
 
             // Act
-            var resultado = _controller.CriarCliente(clienteDto);
+            var resultado = await _controller.CriarCliente(clienteDto);
 
             // Assert
             var cliente = Assert.IsType<CreatedResult>(resultado);
@@ -158,9 +166,12 @@ namespace XPTO.Domain.Tests
 
             Assert.Equal(clienteDto, cliente.Value);
 
+            //Cliente clienteRepo = _clienteRepository.ObterPorId(clienteDto.Id);
+            var clienteRepo = _clienteRepository.Consultar<Cliente>().FirstOrDefault(x => x.Id == clienteDto.Id);
 
+            if (clienteRepo is null)
+                _outputHelper.WriteLine("Cliente adicionado não foi encontrado na base após ObterPorId");
 
-            var clienteRepo = _clienteRepository.Consultar().FirstOrDefault(x => x.Id == clienteDto.Id);
 
             var clienteDtoRepo = _mapper.Map<ClienteDTO>(clienteRepo);
 
@@ -169,7 +180,7 @@ namespace XPTO.Domain.Tests
 
         [Fact(DisplayName = "Adicionar Cliente com email já Cadastrado")]
         [Trait("Cliente", "Post")]
-        public void ObterClientePorID_DeveRetornarError_QuandoClienteExistir()
+        public async Task ObterClientePorID_DeveRetornarError_QuandoClienteExistir()
         {
             // Arrange
             //var clienteDto = new ClienteDTO("José Xavier", "jose@gmail.com", "2178985231",
@@ -186,12 +197,12 @@ namespace XPTO.Domain.Tests
             };
 
             // Act & Assert
-            var resultado = _controller.CriarCliente(clienteDto);
+            var resultado = await _controller.CriarCliente(clienteDto);
 
-            var resultadoDuplicado = _controller.CriarCliente(clienteDto);
+            var resultadoDuplicado = await _controller.CriarCliente(clienteDto);
 
             // chamada direto na service lança exception do tipo DomainExceptionValidation
-            Assert.Throws<DomainExceptionValidation>(() => _clienteService.Adicionar(clienteDto));
+            await Assert.ThrowsAsync<DomainExceptionValidation>(() => _clienteService.Adicionar(clienteDto));
 
             //  esperado que o resultado seja BadRequestObjectResult
             var cliente = Assert.IsType<BadRequestObjectResult>(resultadoDuplicado);
@@ -211,18 +222,18 @@ namespace XPTO.Domain.Tests
 
         [Fact(DisplayName = "Adicionar Cliente sem endereço")]
         [Trait("Cliente", "Post")]
-        public void AdicionarClienteSemEndereco_DeveRetornar()
+        public async Task AdicionarClienteSemEndereco_DeveRetornar()
         {
             // Arrange
 
             var clienteDto = new ClienteDTO("José Xavier", "jose@gmail.com", "2178985231")
             {
-                Id = Guid.Parse("ac0ff7b5-85fc-43fc-8e39-a7d5f5910582")
+                Id = Guid.NewGuid()
             };
 
 
             // Act
-            var resultado = _controller.CriarCliente(clienteDto);
+            var resultado = await _controller.CriarCliente(clienteDto);
 
             // Assert
             var cliente = Assert.IsType<CreatedResult>(resultado);
@@ -232,18 +243,27 @@ namespace XPTO.Domain.Tests
 
             Assert.Equal(clienteDto, cliente.Value);
 
+            // consultar nao funciona
+            // trocar in memory por sqlite
+            // ver implementação de teste repository
 
+            //var clienteRepo = _clienteRepository.ObterPorId(clienteDto.Id);
+            var retornocliente = _controller.ObterClientePorID(clienteDto.Id);
 
-            var clienteRepo = _clienteRepository.Consultar().FirstOrDefault(x => x.Id == clienteDto.Id);
+            var clienteResult = Assert.IsType<ActionResult<ClienteDTO>>(retornocliente);
 
-            var clienteDtoRepo = _mapper.Map<ClienteDTO>(clienteRepo);
+            var dto = Assert.IsType<OkObjectResult>(clienteResult.Result);
 
-            Assert.Equal(clienteDto, clienteDtoRepo);
+            var clienteRepo = Assert.IsType<ClienteDTO>(dto.Value);
+
+            //var clienteDtoRepo = _mapper.Map<ClienteDTO>(clienteRepo);
+
+            Assert.Equal(clienteDto, clienteRepo);
         }
 
         [Fact(DisplayName = "Adicionar Cliente Inválido")]
         [Trait("Cliente", "Post")]
-        public void AdicionarClienteInvalido_DeveRetornarBadRequest()
+        public async Task AdicionarClienteInvalido_DeveRetornarBadRequest()
         {
             // Arrange
             var clienteDto = new ClienteDTO
@@ -256,7 +276,7 @@ namespace XPTO.Domain.Tests
             };
 
             // Act
-            var resultado = _controller.CriarCliente(clienteDto);
+            var resultado = await _controller.CriarCliente(clienteDto);
 
             // Assert
             var cliente = Assert.IsType<BadRequestObjectResult>(resultado);
@@ -346,7 +366,7 @@ namespace XPTO.Domain.Tests
         [Trait("Cliente", "Put")]
         public void AtualizarCliente_DeveRetornarOK()
         {
-            var endereco = new EnderecoDTO("Avenida ", "999", "Volta Redonda", "RJ", "20300-000") { Id = Guid.Parse("962AE9D1-A200-4FBF-81AA-72837C092B67") };
+            var endereco = new EnderecoDTO("Avenida ", "999", "Volta Redonda", "RJ", "20300-000") { Id = Guid.Parse("DB5CCC51-C595-43FE-A81C-50CCABEB0253") };
             var cliente = new ClienteDTO("João Fernando Xavier", "joao@outlook.com", "21 97898 0000", endereco)
             {
                 Id = Guid.Parse("ac0ff7b5-85fc-43fc-8e39-a7d5f5910582")

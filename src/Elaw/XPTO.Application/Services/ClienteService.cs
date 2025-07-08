@@ -16,7 +16,7 @@ namespace XPTO.Application.Services
         private readonly IValidator<Cliente> _clienteValidator = validator;
         private readonly IValidator<Endereco> _enderecoValidator = enderecoValidator;
 
-        public void Adicionar(ClienteDTO clienteDto)
+        public async Task Adicionar(ClienteDTO clienteDto)
         {
             ArgumentNullException.ThrowIfNull(clienteDto, nameof(clienteDto));
 
@@ -40,7 +40,7 @@ namespace XPTO.Application.Services
                     throw new DomainExceptionValidation(enderecoValidade.ToDictionary());
             }
 
-            _clienteRepository.Adicionar(cliente);
+            await _clienteRepository.Adicionar(cliente);
         }
 
         public ClienteDTO ObterPorId(Guid id)

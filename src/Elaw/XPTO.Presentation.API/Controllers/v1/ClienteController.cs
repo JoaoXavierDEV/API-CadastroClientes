@@ -61,7 +61,7 @@ namespace XPTO.Presentation.API.Controllers.v1
 
         [HttpPost(Name = "Criar um novo cliente", Order = 3)]
         [Produces(typeof(ClienteDTO))]
-        public ActionResult CriarCliente(ClienteDTO dto)
+        public async Task<ActionResult> CriarCliente(ClienteDTO dto)
         {
             try
             {
@@ -70,10 +70,12 @@ namespace XPTO.Presentation.API.Controllers.v1
                     var problemDetails = new ValidationProblemDetails(ModelState);
                     return BadRequest(problemDetails);
                 }
+
                 _logger.LogInformation("Info - Preparando um novo cliente com o nome: {Nome}", dto.Nome);
                 _logger.LogDebug("Debug - Preparando um novo cliente com o nome: {Nome}", dto.Nome);
 
-                _clienteService.Adicionar(dto);
+                await _clienteService.Adicionar(dto);
+
 
                 return Created("api/v1/Clientes", dto);
             }

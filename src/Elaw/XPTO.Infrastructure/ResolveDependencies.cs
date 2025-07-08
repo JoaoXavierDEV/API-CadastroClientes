@@ -25,9 +25,6 @@ namespace XPTO.Infrastructure
                 {
                     var existeDados = x.Set<Cliente>().Any();
 
-                    var yy = x.Set<Cliente>().ToList();
-                    var tt = x.Set<Endereco>().ToList();
-
                     if (!existeDados)
                     {
                         Console.WriteLine("Base Clientes Criada...");
@@ -36,13 +33,6 @@ namespace XPTO.Infrastructure
                         x.SaveChanges();
                     }
 
-                    if (!x.Set<Endereco>().Any())
-                    {
-                        Console.WriteLine("Base Enderecos Criada...");
-
-                        x.Set<Endereco>().AddRange(DbInitializer.Enderecos);
-                        x.SaveChanges();
-                    }
 
                 });
             });

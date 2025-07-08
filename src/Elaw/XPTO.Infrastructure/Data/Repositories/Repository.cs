@@ -22,7 +22,7 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
     }
 
     // public IQueryable<TAbela> Consultar<TAbela>() where TAbela : EntityBase
-    public IQueryable<TAbela> Consultar<TAbela>() where TAbela : class
+    public virtual IQueryable<TAbela> Consultar<TAbela>() where TAbela : class
     {
         return Db.Set<TAbela>();
     }
@@ -33,7 +33,7 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
         await SaveChanges();
     }
 
-    public T ObterPorId(Guid id)
+    public virtual T ObterPorId(Guid id)
     {
         return DbSet.Find(id) ?? Activator.CreateInstance<T>();
     }
@@ -83,7 +83,7 @@ public abstract class Repository<T> : IRepository<T> where T : EntityBase, new()
 
     public virtual IQueryable<T> Consultar()
     {
-        return Consultar<T>();
+        return DbSet;
     }
 
 }

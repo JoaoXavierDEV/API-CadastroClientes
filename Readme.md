@@ -40,7 +40,7 @@ A API expõe os seguintes endpoints:
 1. **Clone o repositório:**
    ```bash
    git clone https://github.com/JoaoXavierDEV/API-CadastroClientes.git
-   cd src/API-CadastroClientes
+   cd API-CadastroClientes
    ```
 
 2. **Restaure as dependências:**
@@ -50,7 +50,7 @@ A API expõe os seguintes endpoints:
 
 3. **Rode a aplicação:**
    ```bash
-   dotnet run --project XPTO.Presentation.API/XPTO.Presentation.API.csproj
+   dotnet run --project src/elaw/XPTO.Presentation.API/XPTO.Presentation.API.csproj
    ```
 
 4. **Acesse a API:**

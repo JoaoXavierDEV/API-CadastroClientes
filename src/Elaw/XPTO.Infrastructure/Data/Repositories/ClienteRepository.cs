@@ -18,7 +18,7 @@ namespace XPTO.Infrastructure.Data.Repositories
                 .Include(x => x.Endereco).ToList();
         }
 
-        public new Cliente ObterPorId(Guid id)
+        public override Cliente ObterPorId(Guid id)
         {
             return DbSet.Find(id);
             //return DbSet.Find(id) ?? new Cliente();
@@ -43,6 +43,15 @@ namespace XPTO.Infrastructure.Data.Repositories
                 DbSet.Remove(cliente);
                 await SaveChanges();
             }
+        }
+
+        public override IQueryable<TAbela> Consultar<TAbela>() where TAbela : class
+        {
+            var tt = Db.Set<TAbela>();
+
+            var tytt = DbSet;
+
+            return tt;
         }
 
 
